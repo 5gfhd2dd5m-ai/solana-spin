@@ -93,7 +93,58 @@
       </div>
       <p>यह демо-landing page वीडियो से प्रेरित विज़ुअल शैली में बनाया गया है. Подключение кошелька и реальные выплаты можно добавить на следующем этапе.</p>
     </section>
-  </main>
+  </main> <!-- Prize modal -->
+<div
+  class="prize-modal"
+  id="prizeModal"
+  aria-hidden="true"
+>
+  <div class="prize-modal-backdrop" onclick="closePrizeModal()"></div>
+
+  <div class="prize-modal-card">
+    <button
+      class="prize-close"
+      onclick="closePrizeModal()"
+      aria-label="Закрыть"
+    >
+      ×
+    </button>
+
+    <div class="prize-icon">🎉</div>
+
+    <div class="eyebrow">SOLANA INDIA</div>
+
+    <h2>Поздравляем!</h2>
+
+    <p>Вы выиграли</p>
+
+    <div class="prize-amount" id="prizeAmount">
+      1 SOL
+    </div>
+
+    <p class="wallet-text">
+      Чтобы продолжить, подключите свой Solana-кошелёк.
+    </p>
+
+    <button
+      class="connect-wallet"
+      id="connectWallet"
+      onclick="connectWallet()"
+    >
+      🔗 Подключить кошелёк
+    </button>
+
+    <div
+      class="wallet-status"
+      id="walletStatus"
+      aria-live="polite"
+    ></div>
+
+    <small class="wallet-warning">
+      Никогда не вводите на сайте seed-фразу или приватный ключ.
+    </small>
+  </div>
+</div>
 
   <footer>© 2026 Solana India — Demo</footer>
   <script src="script.js"></script>
