@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana India - Spin & Win</title>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b1a14;
+            --card-bg: #132a21;
+            --accent-gold: #e5a93c;
+            --accent-green: #10b981;
+            --text-light: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #1f3d30;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: #9ca3af;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        /* Wheel Styles */
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin-bottom: 30px;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #ef4444;
+            z-index: 10;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(229, 169, 60, 0.2);
+            transition: transform 4s cubic-bezier(0.15, 0.8, 0.15, 1);
+        }
+
+        .btn-spin {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            width: 80%;
+            max-width: 280px;
+        }
+
+        .btn-spin:disabled {
+            background: #374151;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(229, 169, 60, 0.3);
+        }
+
+        .modal h2 {
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .btn-connect {
+            background: linear-gradient(135deg, var(--accent-gold), #d97706);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>⚡ SOLANA INDIA</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>स्पिन करें. जीतें. सोलाना.</h1>
+        <p class="subtitle">पहिया घुमाएं और मुफ़्त SOL जीतें!</p>
+
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <canvas id="wheel" width="400" height="400"></canvas>
+        </div>
+
+        <button id="spinBtn" class="btn-spin">घूम रहा है...</button>
+    </div>
+
+    <!-- Modal Window -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2>बधाई हो! 🎉</h2>
+            <p>आपने <strong id="winAmount" style="color: var(--accent-gold);">10 SOL</strong> जीता!</p>
+            <p>अपना इनाम का दावा करने के लिए अपना Solana वॉलेट कनेक्ट करें।</p>
+            <button class="btn-connect" id="connectBtn">वॉलेट कनेक्ट करें (Connect Wallet)</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const modal = document.getElementById('modal');
+        const winAmountText = document.getElementById('winAmount');
+        const connectBtn = document.getElementById('connectBtn');
+
+        // Секторы колеса
+        const sectors = [
+            { label: '0.1 SOL', color: '#10b981' },
+            { label: '0.5 SOL', color: '#e5a93c' },
+            { label: '1 SOL', color: '#059669' },
+            { label: '2 SOL', color: '#d97706' },
+            { label: '3 SOL', color: '#10b981' },
+            { label: '5 SOL', color: '#e5a93c' },
+            { label: '10 SOL', color: '#059669' },
+            { label: '50 SOL', color: '#d97706' }
+        ];
+
+        const numSectors = sectors.length;
+        const arc = (2 * Math.PI) / numSectors;
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        // Отрисовка колеса
+        function drawWheel() {
+            ctx.clearRect(0, 0, 400, 400);
+            for (let i = 0; i < numSectors; i++) {
+                const angle = i * arc;
+                ctx.beginPath();
+                ctx.fillStyle = sectors[i].color;
+                ctx.moveTo(200, 200);
+                ctx.arc(200, 200, 190, angle, angle + arc);
+                ctx.lineTo(200, 200);
+                ctx.fill();
+                ctx.stroke();
+
+                // Текст на секторах
+                ctx.save();
+                ctx.translate(200, 200);
+                ctx.rotate(angle + arc / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 18px Arial";
+                ctx.fillText(sectors[i].label, 170, 6);
+                ctx.restore();
+            }
+        }
+
+        drawWheel();
+
+        // Вращение колеса
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            isSpinning = true;
+            spinBtn.disabled = true;
+
+            // Всегда подкручиваем на 10 SOL (индекс 6) для демонстрации
+            const targetIndex = 6; 
+            const degreesPerSector = 360 / numSectors;
+            const targetDegree = 360 - (targetIndex * degreesPerSector) - (degreesPerSector / 2) - 90;
+            
+            const extraTurns = 5 * 360; // 5 полных оборотов
+            const totalRotation = extraTurns + targetDegree;
+
+            canvas.style.transform = `rotate(${totalRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                winAmountText.innerText = sectors[targetIndex].label;
+                modal.classList.add('active');
+            }, 4000);
+        });
+
+        // Подключение кошелька (Phantom)
+        connectBtn.addEventListener('click', async () => {
+            if ("solana" in window) {
+                try {
+                    const response = await window.solana.connect();
+                    alert("वॉलेट कनेक्ट हो गया: " + response.publicKey.toString());
+                } catch (err) {
+                    alert("कनेक्शन रद्द कर दिया गया।");
+                }
+            } else {
+                alert("Solana वॉलेट (например, Phantom) नहीं मिला! कृपया Phantom App का उपयोग करें।");
+                window.open("https://phantom.app/", "_blank");
+            }
+        });
+    </script>
+</body>
+</html>
