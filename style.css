@@ -168,3 +168,105 @@
     font-size: 42px;
   }
 }
+.prize-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.prize-modal.show {
+  display: flex;
+}
+
+.prize-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(23, 16, 10, 0.78);
+  backdrop-filter: blur(7px);
+}
+
+.prize-modal-card {
+  position: relative;
+  z-index: 2;
+  width: min(430px, 100%);
+  padding: 36px 30px 30px;
+  text-align: center;
+  background: #f6eadb;
+  border: 2px solid #c79862;
+  border-radius: 24px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+
+.modal-close {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  border: 0;
+  background: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  color: #36200f;
+}
+
+.modal-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #24180f;
+  color: #f0a34b;
+  font-size: 38px;
+}
+
+.prize-modal-card h2 {
+  margin: 0 0 12px;
+  font-size: 30px;
+}
+
+.prize-modal-card p {
+  color: #6d594b;
+  line-height: 1.6;
+}
+
+.connect-wallet-btn,
+.claim-btn {
+  border: 0;
+  border-radius: 28px;
+  padding: 14px 24px;
+  color: white;
+  background: linear-gradient(90deg,#e66d22,#147344);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.connect-wallet-btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.claim-btn {
+  margin-top: 12px;
+}
+
+.wallet-connected {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #dcefe2;
+  color: #147344;
+  font-weight: 800;
+}
+
+.wallet-note {
+  display: block;
+  margin-top: 18px;
+  color: #8a7465;
+  font-size: 11px;
+}
