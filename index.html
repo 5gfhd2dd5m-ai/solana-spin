@@ -147,6 +147,32 @@
 </div>
 
   <footer>© 2026 Solana India — Demo</footer>
-  <script src="script.js"></script>
+<div class="prize-modal" id="walletModal">
+  <div class="prize-modal-backdrop" onclick="closeWalletModal()"></div>
+
+  <div class="prize-modal-card">
+    <button class="modal-close" onclick="closeWalletModal()">×</button>
+
+    <div class="modal-icon">◎</div>
+
+    <h2>Получить SOL</h2>
+
+    <p>
+      Подключите ваш Solana-кошелёк,
+      чтобы продолжить получение награды.
+    </p>
+
+    <button class="connect-wallet-btn" onclick="connectWallet()">
+      Подключить кошелёк
+    </button>
+
+    <div id="walletStatus"></div>
+
+    <small class="wallet-note">
+      Никогда не вводите seed-фразу или приватный ключ на сайте.
+    </small>
+  </div>
+</div>
+    <script src="script.js"></script>
 </body>
 </html>
