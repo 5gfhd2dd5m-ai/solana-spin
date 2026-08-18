@@ -35,9 +35,8 @@ function spin() {
 
         if (result) {
             result.innerHTML = `
-                🎉 बधाई! आपने
-                <strong>${DEMO_PRIZE}</strong>
-                जीते!
+    🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीते!
+`;
                 <small>(DEMO)</small>
             `;
         }
