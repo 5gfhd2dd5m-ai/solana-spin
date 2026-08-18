@@ -3,170 +3,420 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Solana India — Spin & Win</title>
-  <meta name="description" content="Solana India spin and win landing page.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <meta
+    name="description"
+    content="Solana India — Spin and Win demo"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="nav">
-    <a class="brand" href="#">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>SOLANA <b>INDIA</b></span>
-    </a>
-    <nav>
-      <a class="active" href="#home">स्पिन</a>
-      <a href="#rewards">रिवॉर्ड्स</a>
-      <a href="#how">विवरण</a>
-      <a href="#about">हमारे बारे में</a>
-    </nav>
-    <button class="nav-cta" onclick="scrollToWheel()">अभी स्पिन करें <span>→</span></button>
-  </header>
 
-  <main id="home">
-    <section class="hero">
-      <div class="decor decor-a"></div>
-      <div class="copy">
-        <div class="eyebrow">SOLANA INDIA</div>
-        <h1>स्पिन करें.<br><em>जीतें.</em><br><strong>सोलाना.</strong></h1>
-        <p>पहिया घुमाएँ! SOL जीतें।</p>
-        <div class="rule"></div>
-        <button class="hero-cta" onclick="spin()">अभी स्पिन करें <span>→</span></button>
-        <div class="result" id="result" aria-live="polite"></div>
+<header class="nav">
+
+  <a class="brand" href="#home">
+    <span class="brand-mark">
+      <i></i>
+      <i></i>
+      <i></i>
+    </span>
+
+    <span>
+      SOLANA <b>INDIA</b>
+    </span>
+  </a>
+
+  <nav>
+    <a class="active" href="#home">स्पिन</a>
+    <a href="#rewards">रिवॉर्ड्स</a>
+    <a href="#how">विवरण</a>
+    <a href="#about">हमारे बारे में</a>
+  </nav>
+
+  <button
+    class="nav-cta"
+    onclick="scrollToWheel()"
+  >
+    अभी स्पिन करें <span>→</span>
+  </button>
+
+</header>
+
+
+<main id="home">
+
+  <section class="hero">
+
+    <div class="copy">
+
+      <div class="eyebrow">
+        SOLANA INDIA
       </div>
 
-      <div class="wheel-wrap" id="wheelArea">
-        <div class="winner">WINNER</div>
-        <div class="pointer"></div>
-        <div class="wheel-shadow"></div>
-        <div class="wheel" id="wheel">
-          <div class="wheel-inner">
-            <div class="segment s1"><span>0.05<br><small>SOL</small></span></div>
-            <div class="segment s2"><span>0.1<br><small>SOL</small></span></div>
-            <div class="segment s3"><span>0.2<br><small>SOL</small></span></div>
-            <div class="segment s4"><span>0.5<br><small>SOL</small></span></div>
-            <div class="segment s5"><span>1<br><small>SOL</small></span></div>
-            <div class="segment s6"><span>2<br><small>SOL</small></span></div>
-            <div class="segment s7"><span>3<br><small>SOL</small></span></div>
-            <div class="segment s8"><span>5<br><small>SOL</small></span></div>
-            <div class="segment s9"><span>10<br><small>SOL</small></span></div>
-            <div class="segment s10"><span>20<br><small>SOL</small></span></div>
-            <div class="segment s11"><span>50<br><small>SOL</small></span></div>
-            <div class="segment s12"><span>100<br><small>SOL</small></span></div>
-            <div class="hub"><span class="hub-logo"><i></i><i></i><i></i></span></div>
+      <h1>
+        स्पिन करें.<br>
+        <em>जीतें.</em><br>
+        <strong>सोलाना.</strong>
+      </h1>
+
+      <p>
+        पहिया घुमाएँ! SOL जीतें।
+      </p>
+
+      <div class="rule"></div>
+
+      <button
+        class="hero-cta"
+        onclick="spin()"
+      >
+        अभी स्पिन करें <span>→</span>
+      </button>
+
+      <div
+        class="result"
+        id="result"
+        aria-live="polite"
+      ></div>
+
+    </div>
+
+
+    <div
+      class="wheel-wrap"
+      id="wheelArea"
+    >
+
+      <div class="winner">
+        WINNER
+      </div>
+
+      <div class="pointer"></div>
+
+      <div class="wheel-shadow"></div>
+
+      <div
+        class="wheel"
+        id="wheel"
+      >
+
+        <div class="wheel-inner">
+
+          <div class="segment s1">
+            <span>0.05<br><small>SOL</small></span>
           </div>
+
+          <div class="segment s2">
+            <span>0.1<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s3">
+            <span>0.2<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s4">
+            <span>0.5<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s5">
+            <span>1<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s6">
+            <span>2<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s7">
+            <span>3<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s8">
+            <span>5<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s9">
+            <span>10<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s10">
+            <span>20<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s11">
+            <span>50<br><small>SOL</small></span>
+          </div>
+
+          <div class="segment s12">
+            <span>100<br><small>SOL</small></span>
+          </div>
+
+
+          <div class="hub">
+
+            <span class="hub-logo">
+              <i></i>
+              <i></i>
+              <i></i>
+            </span>
+
+          </div>
+
         </div>
-        <div class="stand"></div>
-      </div>
-    </section>
 
-    <section class="info" id="rewards">
-      <div><span>12</span><small>इनाम</small></div>
-      <div><span>SOL</span><small>रिवॉर्ड टोकन</small></div>
-      <div><span>1×</span><small>प्रति दिन स्पिन</small></div>
-    </section>
+      </div>
 
-    <section class="how" id="how">
-      <div>
-        <span class="step">01</span>
-        <h2>स्पिन करें</h2>
-        <p>स्पिन बटन दबाएँ और पहिया घूमने दें।</p>
-      </div>
-      <div>
-        <span class="step">02</span>
-        <h2>जीतें</h2>
-        <p>विजेता तीर के नीचे दिखाई देगा।</p>
-      </div>
-      <div>
-        <span class="step">03</span>
-        <h2>रिवॉर्ड पाएँ</h2>
-        <p>जीता हुआ SOL आपके वॉलेट में भेजा जाएगा।</p>
-      </div>
-    </section>
+      <div class="stand"></div>
 
-  
-  </main> <!-- Prize modal -->
+    </div>
+
+  </section>
+
+
+  <section
+    class="info"
+    id="rewards"
+  >
+
+    <div>
+      <span>12</span>
+      <small>इनाम</small>
+    </div>
+
+    <div>
+      <span>SOL</span>
+      <small>रिवॉर्ड टोकन</small>
+    </div>
+
+    <div>
+      <span>1×</span>
+      <small>प्रति दिन स्पिन</small>
+    </div>
+
+  </section>
+
+
+  <section
+    class="how"
+    id="how"
+  >
+
+    <div>
+      <span class="step">01</span>
+
+      <h2>स्पिन करें</h2>
+
+      <p>
+        स्पिन बटन दबाएँ और पहिया घूमने दें।
+      </p>
+    </div>
+
+
+    <div>
+      <span class="step">02</span>
+
+      <h2>जीतें</h2>
+
+      <p>
+        विजेता तीर के नीचे दिखाई देगा।
+      </p>
+    </div>
+
+
+    <div>
+      <span class="step">03</span>
+
+      <h2>रिवॉर्ड पाएँ</h2>
+
+      <p>
+        अपने वॉलेट को कनेक्ट करके डेमो जारी रखें।
+      </p>
+    </div>
+
+  </section>
+
+
+  <section
+    class="about"
+    id="about"
+  >
+
+    <div>
+
+      <div class="eyebrow">
+        SOLANA INDIA
+      </div>
+
+      <h2>
+        कम्युनिटी के लिए बनाया गया।
+      </h2>
+
+    </div>
+
+    <p>
+      यह Solana India का डेमो स्पिन अनुभव है।
+      यहां पुरस्कार का परिणाम डेमो के लिए हमेशा 1 SOL दिखाया जाता है।
+    </p>
+
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 Solana India — Demo
+</footer>
+
+
+<!-- WIN MODAL -->
+
 <div
   class="prize-modal"
   id="prizeModal"
   aria-hidden="true"
 >
-  <div class="prize-modal-backdrop" onclick="closePrizeModal()"></div>
+
+  <div
+    class="prize-modal-backdrop"
+    onclick="closePrizeModal()"
+  ></div>
+
 
   <div class="prize-modal-card">
+
     <button
       class="prize-close"
       onclick="closePrizeModal()"
-      aria-label="Закрыть"
+      aria-label="बंद करें"
     >
       ×
     </button>
 
-    <div class="prize-icon">🎉</div>
 
-    <div class="eyebrow">SOLANA INDIA</div>
+    <div class="prize-icon">
+      🎉
+    </div>
 
-    <h2>Поздравляем!</h2>
 
-    <p>Вы выиграли</p>
+    <div class="eyebrow">
+      SOLANA INDIA
+    </div>
 
-    <div class="prize-amount" id="prizeAmount">
+
+    <h2>
+      बधाई हो!
+    </h2>
+
+
+    <p>
+      आपने जीता
+    </p>
+
+
+    <div
+      class="prize-amount"
+      id="prizeAmount"
+    >
       1 SOL
     </div>
 
-    <p class="wallet-text">
-      Чтобы продолжить, подключите свой Solana-кошелёк.
-    </p>
 
     <button
       class="connect-wallet"
-      id="connectWallet"
-      onclick="connectWallet()"
+      onclick="openModal()"
     >
-      🔗 Подключить кошелёк
+      वॉलेट कनेक्ट करें
     </button>
 
+  </div>
+
+</div>
+
+
+<!-- WALLET MODAL -->
+
+<div
+  class="prize-modal"
+  id="walletModal"
+  aria-hidden="true"
+>
+
+  <div
+    class="prize-modal-backdrop"
+    onclick="closeWalletModal()"
+  ></div>
+
+
+  <div class="prize-modal-card">
+
+    <button
+      class="modal-close"
+      onclick="closeWalletModal()"
+      aria-label="बंद करें"
+    >
+      ×
+    </button>
+
+
+    <div class="modal-icon">
+      ◎
+    </div>
+
+
+    <h2>
+      SOL प्राप्त करें
+    </h2>
+
+
+    <p>
+      अपना Solana वॉलेट कनेक्ट करें,
+      ताकि डेमो जारी रखा जा सके।
+    </p>
+
+
+    <button
+      class="connect-wallet-btn"
+      onclick="connectWallet()"
+    >
+      वॉलेट कनेक्ट करें
+    </button>
+
+
     <div
-      class="wallet-status"
       id="walletStatus"
+      class="wallet-status"
       aria-live="polite"
     ></div>
 
-    <small class="wallet-warning">
-      Никогда не вводите на сайте seed-фразу или приватный ключ.
-    </small>
-  </div>
-</div>
-
-  <footer>© 2026 Solana India — Demo</footer>
-<div class="prize-modal" id="walletModal">
-  <div class="prize-modal-backdrop" onclick="closeWalletModal()"></div>
-
-  <div class="prize-modal-card">
-    <button class="modal-close" onclick="closeWalletModal()">×</button>
-
-    <div class="modal-icon">◎</div>
-
-    <h2>Получить SOL</h2>
-
-    <p>
-      Подключите ваш Solana-кошелёк,
-      чтобы продолжить получение награды.
-    </p>
-
-    <button class="connect-wallet-btn" onclick="connectWallet()">
-      Подключить кошелёк
-    </button>
-
-    <div id="walletStatus"></div>
 
     <small class="wallet-note">
-      Никогда не вводите seed-фразу или приватный ключ на сайте.
+      साइट पर कभी भी seed phrase या private key दर्ज न करें।
     </small>
+
   </div>
+
 </div>
-    <script src="script.js"></script>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
