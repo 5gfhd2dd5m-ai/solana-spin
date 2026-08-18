@@ -4,68 +4,61 @@ const result = document.getElementById("result");
 let rotation = 0;
 let spinning = false;
 
-const prizes = [
-  "0.05 SOL",
-  "0.1 SOL",
-  "0.2 SOL",
-  "0.5 SOL",
-  "1 SOL",
-  "2 SOL",
-  "3 SOL",
-  "5 SOL",
-  "10 SOL",
-  "20 SOL",
-  "50 SOL",
-  "100 SOL"
-];
+// Для демо результат всегда одинаковый
+const DEMO_PRIZE = "5 SOL";
 
 function spin() {
   if (spinning) return;
 
   spinning = true;
-  result.textContent = "पहिया घूम रहा है…";
 
-  const index = Math.floor(Math.random() * prizes.length);
-  const segmentAngle = 360 / prizes.length;
+  if (result) {
+    result.textContent = "पहिया घूम रहा है…";
+  }
 
-  const target =
-    360 - (index * segmentAngle + segmentAngle / 2);
+  // Каждый раз крутим колесо на 6 полных оборотов
+  rotation += 2160;
 
-  const current = rotation % 360;
-
-  rotation +=
-    360 * 6 +
-    ((target - current + 360) % 360);
-
-  wheel.style.transform = `rotate(${rotation}deg)`;
+  if (wheel) {
+    wheel.style.transform = `rotate(${rotation}deg)`;
+  }
 
   setTimeout(() => {
-    const prize = prizes[index];
-
-    result.innerHTML = `
-      🎉 बधाई! आपने <strong>${prize}</strong> जीता!
-      <br>
-      <button class="claim-btn" onclick="openWalletModal()">
-        Получить SOL →
-      </button>
-    `;
+    if (result) {
+      result.innerHTML = `
+        🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीता!
+        <br>
+        <button
+          class="claim-btn"
+          onclick="openModal()"
+        >
+          प्राप्त करें SOL →
+        </button>
+      `;
+    }
 
     spinning = false;
   }, 4700);
 }
 
+
+// Кнопка «अभी स्पिन करें»
 function scrollToWheel() {
-  document
-    .getElementById("wheelArea")
-    .scrollIntoView({
+  const wheelArea = document.getElementById("wheelArea");
+
+  if (wheelArea) {
+    wheelArea.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
+  }
 
   setTimeout(spin, 500);
 }
 
-function openWalletModal() {
+
+// Открытие окна
+function openModal() {
   const modal = document.getElementById("walletModal");
 
   if (modal) {
@@ -73,6 +66,8 @@ function openWalletModal() {
   }
 }
 
+
+// Закрытие окна
 function closeWalletModal() {
   const modal = document.getElementById("walletModal");
 
@@ -81,12 +76,17 @@ function closeWalletModal() {
   }
 }
 
+
+// Подключение Phantom
 async function connectWallet() {
+  const status = document.getElementById("walletStatus");
+
   try {
     if (!window.solana || !window.solana.isPhantom) {
-      alert(
-        "Установите Phantom Wallet или откройте сайт через приложение Phantom."
-      );
+      if (status) {
+        status.textContent =
+          "Phantom Wallet उपलब्ध नहीं है।";
+      }
       return;
     }
 
@@ -94,18 +94,22 @@ async function connectWallet() {
 
     const address = response.publicKey.toString();
 
-    document.getElementById("walletStatus").innerHTML = `
-      <div class="wallet-connected">
-        Кошелёк подключён ✅
-        <br>
-        <small>${address.slice(0, 6)}...${address.slice(-4)}</small>
-      </div>
-    `;
+    if (status) {
+      status.innerHTML = `
+        <div class="wallet-connected">
+          वॉलेट कनेक्ट हो गया ✅
+          <br>
+          <small>${address.slice(0, 6)}...${address.slice(-4)}</small>
+        </div>
+      `;
+    }
 
   } catch (error) {
     console.error(error);
 
-    document.getElementById("walletStatus").textContent =
-      "Не удалось подключить кошелёк.";
+    if (status) {
+      status.textContent =
+        "वॉलेट कनेक्ट नहीं हो सका।";
+    }
   }
 }
