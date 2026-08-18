@@ -169,19 +169,15 @@
             <span>100<br><small>SOL</small></span>
           </div>
 
-
           <div class="hub">
-
             <span class="hub-logo">
               <i></i>
               <i></i>
               <i></i>
             </span>
-
           </div>
 
         </div>
-
       </div>
 
       <div class="stand"></div>
@@ -191,10 +187,7 @@
   </section>
 
 
-  <section
-    class="info"
-    id="rewards"
-  >
+  <section class="info" id="rewards">
 
     <div>
       <span>12</span>
@@ -214,10 +207,7 @@
   </section>
 
 
-  <section
-    class="how"
-    id="how"
-  >
+  <section class="how" id="how">
 
     <div>
       <span class="step">01</span>
@@ -229,7 +219,6 @@
       </p>
     </div>
 
-
     <div>
       <span class="step">02</span>
 
@@ -240,24 +229,20 @@
       </p>
     </div>
 
-
     <div>
       <span class="step">03</span>
 
       <h2>रिवॉर्ड पाएँ</h2>
 
       <p>
-        अपने वॉलेट को कनेक्ट करके डेमो जारी रखें।
+        डेमो परिणाम देखने के लिए जारी रखें।
       </p>
     </div>
 
   </section>
 
 
-  <section
-    class="about"
-    id="about"
-  >
+  <section class="about" id="about">
 
     <div>
 
@@ -273,7 +258,7 @@
 
     <p>
       यह Solana India का डेमो स्पिन अनुभव है।
-      यहां पुरस्कार का परिणाम डेमो के लिए हमेशा 1 SOL दिखाया जाता है।
+      डेमो में परिणाम हमेशा 5 SOL दिखाया जाता है।
     </p>
 
   </section>
@@ -286,7 +271,9 @@
 </footer>
 
 
-<!-- WIN MODAL -->
+<!-- =========================
+     WIN MODAL
+========================= -->
 
 <div
   class="prize-modal"
@@ -299,7 +286,6 @@
     onclick="closePrizeModal()"
   ></div>
 
-
   <div class="prize-modal-card">
 
     <button
@@ -310,34 +296,28 @@
       ×
     </button>
 
-
     <div class="prize-icon">
       🎉
     </div>
-
 
     <div class="eyebrow">
       SOLANA INDIA
     </div>
 
-
     <h2>
       बधाई हो!
     </h2>
-
 
     <p>
       आपने जीता
     </p>
 
-
     <div
       class="prize-amount"
       id="prizeAmount"
     >
-      1 SOL
+      5 SOL
     </div>
-
 
     <button
       class="connect-wallet"
@@ -351,7 +331,9 @@
 </div>
 
 
-<!-- WALLET MODAL -->
+<!-- =========================
+     DEMO WALLET MODAL
+========================= -->
 
 <div
   class="prize-modal"
@@ -364,7 +346,6 @@
     onclick="closeWalletModal()"
   ></div>
 
-
   <div class="prize-modal-card">
 
     <button
@@ -375,30 +356,24 @@
       ×
     </button>
 
-
     <div class="modal-icon">
       ◎
     </div>
-
 
     <h2>
       SOL प्राप्त करें
     </h2>
 
-
     <p>
-      अपना Solana वॉलेट कनेक्ट करें,
-      ताकि डेमो जारी रखा जा सके।
+      डेमो जारी रखने के लिए वॉलेट चुनें।
     </p>
-
 
     <button
       class="connect-wallet-btn"
-      onclick="connectWallet()"
+      onclick="openWalletChooser()"
     >
-      वॉलेट कनेक्ट करें
+      वॉलेट चुनें
     </button>
-
 
     <div
       id="walletStatus"
@@ -406,9 +381,8 @@
       aria-live="polite"
     ></div>
 
-
     <small class="wallet-note">
-      साइट पर कभी भी seed phrase या private key दर्ज न करें।
+      यह एक डेमो है। Seed phrase या private key कभी दर्ज न करें।
     </small>
 
   </div>
@@ -416,7 +390,9 @@
 </div>
 
 
-<script src="script.js"></script><!-- WALLET CHOOSER -->
+<!-- =========================
+     DEMO WALLET CHOOSER
+========================= -->
 
 <div
   class="wallet-chooser"
@@ -439,76 +415,133 @@
     </button>
 
     <div class="wallet-chooser-head">
-      <span class="wallet-help">?</span>
 
-      <h2>Connect Wallet</h2>
+      <span class="wallet-help">
+        ?
+      </span>
+
+      <h2>
+        Connect Wallet
+      </h2>
+
     </div>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('Solflare')"
     >
-      <span class="wallet-icon solflare">S</span>
-      <span>Solflare</span>
-      <b>POPULAR</b>
+      <span class="wallet-icon solflare">
+        S
+      </span>
+
+      <span>
+        Solflare
+      </span>
+
+      <b>
+        POPULAR
+      </b>
     </button>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('Phantom')"
     >
-      <span class="wallet-icon phantom">◒</span>
-      <span>Phantom</span>
-      <b>POPULAR</b>
+      <span class="wallet-icon phantom">
+        ◒
+      </span>
+
+      <span>
+        Phantom
+      </span>
+
+      <b>
+        POPULAR
+      </b>
     </button>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('Trust Wallet')"
     >
-      <span class="wallet-icon trust">◆</span>
-      <span>Trust Wallet</span>
+      <span class="wallet-icon trust">
+        ◆
+      </span>
+
+      <span>
+        Trust Wallet
+      </span>
     </button>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('Jupiter')"
     >
-      <span class="wallet-icon jupiter">◎</span>
-      <span>Jupiter</span>
+      <span class="wallet-icon jupiter">
+        ◎
+      </span>
+
+      <span>
+        Jupiter
+      </span>
     </button>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('MetaMask')"
     >
-      <span class="wallet-icon metamask">◇</span>
-      <span>MetaMask</span>
+      <span class="wallet-icon metamask">
+        ◇
+      </span>
+
+      <span>
+        MetaMask
+      </span>
     </button>
+
 
     <button
       class="wallet-option"
       onclick="connectSelectedWallet('All Wallets')"
     >
-      <span class="wallet-icon all-wallets">••</span>
-      <span>All Wallets</span>
-      <b>130+</b>
+      <span class="wallet-icon all-wallets">
+        ••
+      </span>
+
+      <span>
+        All Wallets
+      </span>
+
+      <b>
+        130+
+      </b>
     </button>
+
 
     <div
       id="walletChooserStatus"
       class="wallet-chooser-status"
     ></div>
 
+
     <p class="wallet-safety">
-      यह केवल wallet connection है।
-      Seed phrase या private key कभी दर्ज न करें।
+      Демо-режим: реальные транзакции не выполняются.
+      Seed phrase или private key никогда не требуются.
     </p>
 
   </div>
 
 </div>
 
+
+<!-- SCRIPT ДОЛЖЕН БЫТЬ В САМОМ КОНЦЕ -->
+
+<script src="script.js"></script>
 
 </body>
 </html>
