@@ -6,288 +6,75 @@ let spinning = false;
 
 const DEMO_PRIZE = "5 SOL";
 
-/* =========================
-   SPIN
-========================= */
-
 function spin() {
-  if (spinning) return;
+    if (spinning) return;
 
-  spinning = true;
+    spinning = true;
 
-  if (result) {
-    result.textContent = "पहिया घूम रहा है…";
-  }
-
-  /*
-    Визуальное демо.
-    Результат всегда 5 SOL.
-    Реальной выплаты здесь нет.
-  */
-
-  rotation += 2160;
-
-  if (wheel) {
-    wheel.style.transform = `rotate(${rotation}deg)`;
-  }
-
-  setTimeout(() => {
     if (result) {
-      result.innerHTML = `
-        🎉 बधाई! आपने
-        <strong>${DEMO_PRIZE}</strong>
-        जीता!
-        <br>
-
-        <small style="
-          display:block;
-          margin-top:7px;
-          font-size:11px;
-          color:#8a7465;
-        ">
-          DEMO — वास्तविक SOL भुगतान नहीं किया जाता।
-        </small>
-
-        <button
-          class="claim-btn"
-          onclick="openWalletChooser()"
-        >
-          वॉलेट कनेक्ट करें →
-        </button>
-      `;
+        result.textContent = "पहिया घूम रहा है...";
     }
 
-    spinning = false;
-
     /*
-      Сразу после выигрыша открываем
-      окно выбора кошелька.
-    */
+     * ДЕМО:
+     * Результат всегда 5 SOL.
+     */
+    rotation += 2160;
+
+    if (wheel) {
+        wheel.style.transition =
+            "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
+
+        wheel.style.transform = `rotate(${rotation}deg)`;
+    }
+
     setTimeout(() => {
-      openWalletChooser();
-    }, 500);
-
-  }, 4700);
-}
-
-
-/* =========================
-   SCROLL
-========================= */
-
-function scrollToWheel() {
-  const wheelArea = document.getElementById("wheelArea");
-
-  if (wheelArea) {
-    wheelArea.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  }
-}
-
-
-/* =========================
-   WALLET CHOOSER
-========================= */
-
-function openWalletChooser() {
-  const modal = document.getElementById("walletChooser");
-
-  if (!modal) return;
-
-  modal.classList.add("show");
-  modal.setAttribute("aria-hidden", "false");
-}
-
-
-function closeWalletChooser() {
-  const modal = document.getElementById("walletChooser");
-
-  if (!modal) return;
-
-  modal.classList.remove("show");
-  modal.setAttribute("aria-hidden", "true");
-}
-
-
-/* =========================
-   WALLET CONNECTION
-========================= */
-
-async function connectSelectedWallet(walletName) {
-
-  const status =
-    document.getElementById("walletChooserStatus");
-
-  if (status) {
-    status.textContent =
-      `${walletName} से कनेक्ट हो रहा है…`;
-  }
-
-  try {
-
-    /*
-      Phantom
-    */
-
-    if (
-      walletName === "Phantom" &&
-      window.solana &&
-      window.solana.isPhantom
-    ) {
-
-      const response =
-        await window.solana.connect();
-
-      showConnected(
-        response.publicKey.toString(),
-        walletName
-      );
-
-      return;
-    }
-
-
-    /*
-      Solflare
-    */
-
-    if (
-      walletName === "Solflare" &&
-      window.solflare
-    ) {
-
-      const response =
-        await window.solflare.connect();
-
-      const publicKey =
-        response.publicKey ||
-        window.solflare.publicKey;
-
-      showConnected(
-        publicKey.toString(),
-        walletName
-      );
-
-      return;
-    }
-
-
-    /*
-      Другие кошельки:
-      если они установлены через Wallet Standard,
-      пробуем найти их через window.navigator.wallets.
-    */
-
-    const wallets =
-      window.navigator.wallets?.get?.();
-
-    if (wallets && wallets.length) {
-
-      const wallet =
-        wallets.find((item) =>
-          item.name
-            ?.toLowerCase()
-            .includes(walletName.toLowerCase())
-        );
-
-      if (wallet) {
-
-        const accounts =
-          await wallet.features[
-            "standard:connect"
-          ].connect();
-
-        if (
-          accounts &&
-          accounts.accounts &&
-          accounts.accounts.length
-        ) {
-
-          showConnected(
-            accounts.accounts[0].address,
-            walletName
-          );
-
-          return;
+        if (result) {
+            result.innerHTML = `
+                🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीते!
+            `;
         }
-      }
-    }
 
+        spinning = false;
 
-    if (status) {
-      status.innerHTML = `
-        <div class="wallet-error">
-          ${walletName} अभी उपलब्ध नहीं है।
-          <br>
-          कृपया यह wallet अपने डिवाइस पर खोलें।
-        </div>
-      `;
-    }
+        // Показываем демо-окно после остановки
+        setTimeout(() => {
+            openModal();
+        }, 500);
 
-  } catch (error) {
-
-    console.error(error);
-
-    if (status) {
-      status.textContent =
-        "वॉलेट कनेक्शन रद्द या असफल हुआ।";
-    }
-  }
+    }, 4000);
 }
 
 
 /* =========================
-   CONNECTED
+   ДЕМО-ОКНО
 ========================= */
 
-function showConnected(address, walletName) {
-
-  const status =
-    document.getElementById("walletChooserStatus");
-
-  if (!status) return;
-
-  status.innerHTML = `
-    <div class="wallet-connected">
-      ✅ ${walletName} कनेक्ट हो गया
-      <br>
-
-      <small>
-        ${address.slice(0, 6)}
-        ...
-        ${address.slice(-4)}
-      </small>
-
-      <br>
-
-      <small style="
-        color:#8a7465;
-        font-weight:400;
-      ">
-        DEMO — कोई SOL ट्रांसफर नहीं किया गया।
-      </small>
-    </div>
-  `;
-}
-
-
-/* =========================
-   ESC
-========================= */
-
-document.addEventListener("keydown", (event) => {
-
-  if (event.key === "Escape") {
-    closeWalletChooser();
-  }
-
-});
 function openModal() {
     const modal = document.getElementById("walletModal");
 
     if (modal) {
         modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
     }
 }
+
+
+function closeModal() {
+    const modal = document.getElementById("walletModal");
+
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+    }
+}
+
+
+/* Закрытие по клику вне окна */
+document.addEventListener("click", function(event) {
+    const modal = document.getElementById("walletModal");
+
+    if (modal && event.target === modal) {
+        closeModal();
+    }
+});
