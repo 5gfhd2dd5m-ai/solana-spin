@@ -284,3 +284,10 @@ document.addEventListener("keydown", (event) => {
   }
 
 });
+function openModal() {
+    const modal = document.getElementById("walletModal");
+
+    if (modal) {
+        modal.style.display = "flex";
+    }
+}
