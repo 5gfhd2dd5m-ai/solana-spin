@@ -6,8 +6,9 @@ let spinning = false;
 
 const DEMO_PRIZE = "5 SOL";
 
+
 /* =========================
-   SPIN
+   КОЛЕСО
 ========================= */
 
 function spin() {
@@ -19,32 +20,32 @@ function spin() {
         result.textContent = "पहिया घूम रहा है...";
     }
 
-    /*
-     * DEMO ONLY:
-     * Колесо всегда показывает 5 SOL.
-     */
+    // Демо: визуально всегда показываем выигрыш 5 SOL
     rotation += 2160;
 
     if (wheel) {
         wheel.style.transition =
             "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
 
-        wheel.style.transform = `rotate(${rotation}deg)`;
+        wheel.style.transform =
+            `rotate(${rotation}deg)`;
     }
 
     setTimeout(() => {
+
         if (result) {
             result.innerHTML = `
-                🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong>
-                जीते! <small>(DEMO)</small>
+                🎉 बधाई! आपने
+                <strong>${DEMO_PRIZE}</strong>
+                जीते!
+                <small>(DEMO)</small>
             `;
         }
 
         spinning = false;
 
-        // После остановки открываем демо-окно
         setTimeout(() => {
-            openPrizeModal();
+            openModal();
         }, 500);
 
     }, 4000);
@@ -52,7 +53,7 @@ function spin() {
 
 
 /* =========================
-   PRIZE MODAL
+   ОКНО НАГРАДЫ
 ========================= */
 
 function openPrizeModal() {
@@ -111,11 +112,12 @@ function closeWalletModal() {
 
 
 /* =========================
-   WALLET CHOOSER
+   СПИСОК КОШЕЛЬКОВ
 ========================= */
 
 function connectWallet() {
-    const chooser = document.getElementById("walletChooser");
+    const chooser =
+        document.getElementById("walletChooser");
 
     if (chooser) {
         chooser.style.display = "flex";
@@ -125,7 +127,8 @@ function connectWallet() {
 
 
 function closeWalletChooser() {
-    const chooser = document.getElementById("walletChooser");
+    const chooser =
+        document.getElementById("walletChooser");
 
     if (chooser) {
         chooser.style.display = "none";
@@ -135,28 +138,32 @@ function closeWalletChooser() {
 
 
 /* =========================
-   DEMO WALLET SELECTION
+   ВЫБОР КОШЕЛЬКА — ДЕМО
 ========================= */
 
 function connectSelectedWallet(walletName) {
+
     const status =
         document.getElementById("walletChooserStatus");
 
     if (status) {
         status.innerHTML = `
             <strong>${walletName}</strong><br>
-            यह एक डेमो है। वास्तविक wallet connection नहीं किया गया।
+            Это демонстрация.
+            Реальное подключение кошелька не выполняется.
         `;
     }
 }
 
 
 /* =========================
-   SCROLL
+   ПРОКРУТКА К КОЛЕСУ
 ========================= */
 
 function scrollToWheel() {
-    const wheelArea = document.getElementById("wheelArea");
+
+    const wheelArea =
+        document.getElementById("wheelArea");
 
     if (wheelArea) {
         wheelArea.scrollIntoView({
@@ -168,7 +175,22 @@ function scrollToWheel() {
 
 
 /* =========================
-   CLOSE MODALS
+   ЗАКРЫТИЕ ПО ESC
+========================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key !== "Escape") return;
+
+    closePrizeModal();
+    closeWalletModal();
+    closeWalletChooser();
+
+});
+
+
+/* =========================
+   КЛИК ПО ФОНУ
 ========================= */
 
 document.addEventListener("click", function(event) {
@@ -178,6 +200,9 @@ document.addEventListener("click", function(event) {
 
     const walletModal =
         document.getElementById("walletModal");
+
+    const walletChooser =
+        document.getElementById("walletChooser");
 
     if (
         prizeModal &&
@@ -193,19 +218,11 @@ document.addEventListener("click", function(event) {
         closeWalletModal();
     }
 
-});
-
-
-/* =========================
-   ESC KEY
-========================= */
-
-document.addEventListener("keydown", function(event) {
-
-    if (event.key !== "Escape") return;
-
-    closePrizeModal();
-    closeWalletModal();
-    closeWalletChooser();
+    if (
+        walletChooser &&
+        event.target === walletChooser
+    ) {
+        closeWalletChooser();
+    }
 
 });
