@@ -870,7 +870,7 @@ footer {
     font-size: 11px;
 
     transform:
-      rotate(calc(-1 * var(--angle)))
+      
       translate(25px, -4px);
   }
 
