@@ -10,7 +10,7 @@ let spinning = false;
 
   Для демонстрации результат всегда одинаковый.
 */
-const DEMO_PRIZE = "1 SOL";
+const PRIZE = "5 SOL";
 
 
 /* SPIN */
