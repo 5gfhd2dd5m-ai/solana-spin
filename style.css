@@ -312,4 +312,9 @@
   margin-top: 18px;
   color: #8a7465;
   font-size: 11px;
+@media (max-width: 420px) {
+  .segment span {
+    font-size: 11px !important;
+    transform: rotate(calc(-1 * var(--angle))) translate(25px, -4px) !important;
+  }
 }
