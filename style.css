@@ -13,9 +13,8 @@ body {
   font-family: "Noto Sans Devanagari", system-ui, sans-serif;
 }
 
-/* =========================
-   NAVIGATION
-   ========================= */
+
+/* NAV */
 
 .nav {
   height: 76px;
@@ -34,7 +33,6 @@ body {
   text-decoration: none;
   color: #171717;
   font-weight: 900;
-  letter-spacing: .03em;
 }
 
 .brand b {
@@ -63,7 +61,8 @@ body {
   );
 }
 
-.brand-mark i:nth-child(2) {
+.brand-mark i:nth-child(2),
+.hub-logo i:nth-child(2) {
   transform: skewX(28deg);
   background: linear-gradient(
     90deg,
@@ -71,6 +70,7 @@ body {
     #ef7418 45%
   );
 }
+
 
 nav {
   display: flex;
@@ -89,20 +89,30 @@ nav a.active {
   border-bottom: 2px solid #c6782b;
 }
 
+
+/* BUTTONS */
+
 .nav-cta,
-.hero-cta {
+.hero-cta,
+.connect-wallet,
+.connect-wallet-btn {
   border: 0;
   color: white;
   font: 700 15px inherit;
   border-radius: 28px;
-  padding: 14px 25px;
   cursor: pointer;
   background: linear-gradient(
     90deg,
     #e66d22,
     #147344
   );
-  box-shadow: 0 10px 22px #8d6c4b2a;
+  box-shadow:
+    0 10px 22px #8d6c4b2a;
+}
+
+.nav-cta,
+.hero-cta {
+  padding: 14px 25px;
 }
 
 .nav-cta span,
@@ -111,9 +121,8 @@ nav a.active {
   font-size: 20px;
 }
 
-/* =========================
-   HERO
-   ========================= */
+
+/* HERO */
 
 .hero {
   min-height: 600px;
@@ -173,15 +182,14 @@ nav a.active {
 }
 
 .result {
-  min-height: 28px;
+  min-height: 70px;
   margin-top: 14px;
   font-weight: 800;
   color: #147344;
 }
 
-/* =========================
-   WHEEL
-   ========================= */
+
+/* WHEEL */
 
 .wheel-wrap {
   width: 54%;
@@ -197,10 +205,8 @@ nav a.active {
   height: min(440px, 43vw);
   min-width: 300px;
   min-height: 300px;
-
   border-radius: 50%;
   padding: 18px;
-
   background: #36200f;
 
   box-shadow:
@@ -218,7 +224,6 @@ nav a.active {
   position: absolute;
   inset: 6px;
   border-radius: 50%;
-
   border: 3px solid #b78950;
 
   box-shadow:
@@ -230,29 +235,18 @@ nav a.active {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-
   position: relative;
   overflow: hidden;
 
   background:
     repeating-conic-gradient(
       from -15deg,
-
-      #f2eadb 0deg 30deg,
-      #ef681c 30deg 60deg,
-      #117346 60deg 90deg,
-
-      #f2eadb 90deg 120deg,
-      #ef681c 120deg 150deg,
-      #117346 150deg 180deg,
-
-      #f2eadb 180deg 210deg,
-      #ef681c 210deg 240deg,
-      #117346 240deg 270deg,
-
-      #f2eadb 270deg 300deg,
-      #ef681c 300deg 330deg,
-      #117346 330deg 360deg
+      #f2eadb 0 30deg,
+      #f2eadb 30deg 60deg,
+      #ef681c 60deg 90deg,
+      #ef681c 90deg 120deg,
+      #117346 120deg 150deg,
+      #117346 150deg 180deg
     );
 
   border: 5px solid #8e5d2e;
@@ -275,60 +269,41 @@ nav a.active {
   pointer-events: none;
 }
 
-/* =========================
-   PRIZE NUMBERS
-   ========================= */
 
-/*
-   ВАЖНО:
-
-   Сектора идут каждые 30 градусов.
-   Первый сектор находится сверху.
-   Поэтому первый угол = -90deg.
-
-   Текст получает обратный угол,
-   поэтому цифры всегда остаются ровными.
-*/
+/* NUMBERS */
 
 .segment {
   position: absolute;
-
   left: 50%;
   top: 50%;
 
-  width: 0;
-  height: 0;
+  width: 50%;
+  height: 50%;
 
   transform-origin: 0 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   z-index: 1;
 }
 
 .segment span {
-  position: absolute;
-
-  left: 135px;
-  top: 0;
-
-  width: 75px;
-
   display: block;
-
-  text-align: center;
 
   font-weight: 900;
   font-size: 15px;
+
+  text-align: center;
   line-height: 1;
 
   white-space: nowrap;
 
-  /*
-     Поворачиваем позицию вместе с сектором,
-     но сам текст поворачиваем обратно.
-  */
+  /* цифры не наклоняются */
   transform:
-    translate(-50%, -50%)
-    rotate(calc(-1 * var(--angle)));
+    rotate(calc(-1 * var(--angle)))
+    translate(34px, -7px);
 }
 
 .segment small {
@@ -336,73 +311,71 @@ nav a.active {
   font-weight: 700;
 }
 
-/* =========================
-   12 СЕКТОРОВ
-   ========================= */
+
+/* SEGMENTS */
 
 .s1 {
-  --angle: -90deg;
+  --angle: -15deg;
   transform: rotate(var(--angle));
 }
 
 .s2 {
-  --angle: -60deg;
+  --angle: 15deg;
   transform: rotate(var(--angle));
 }
 
 .s3 {
-  --angle: -30deg;
+  --angle: 45deg;
   transform: rotate(var(--angle));
 }
 
 .s4 {
-  --angle: 0deg;
+  --angle: 75deg;
   transform: rotate(var(--angle));
 }
 
 .s5 {
-  --angle: 30deg;
+  --angle: 105deg;
   transform: rotate(var(--angle));
 }
 
 .s6 {
-  --angle: 60deg;
+  --angle: 135deg;
   transform: rotate(var(--angle));
 }
 
 .s7 {
-  --angle: 90deg;
+  --angle: 165deg;
   transform: rotate(var(--angle));
 }
 
 .s8 {
-  --angle: 120deg;
+  --angle: 195deg;
   transform: rotate(var(--angle));
 }
 
 .s9 {
-  --angle: 150deg;
+  --angle: 225deg;
   transform: rotate(var(--angle));
 }
 
 .s10 {
-  --angle: 180deg;
+  --angle: 255deg;
   transform: rotate(var(--angle));
 }
 
 .s11 {
-  --angle: 210deg;
+  --angle: 285deg;
   transform: rotate(var(--angle));
 }
 
 .s12 {
-  --angle: 240deg;
+  --angle: 315deg;
   transform: rotate(var(--angle));
 }
 
-/* =========================
-   CENTER HUB
-   ========================= */
+
+/* HUB */
 
 .hub {
   position: absolute;
@@ -422,7 +395,8 @@ nav a.active {
 
   border: 4px solid #b17a3a;
 
-  box-shadow: 0 4px 0 #0f0a06;
+  box-shadow:
+    0 4px 0 #0f0a06;
 
   display: flex;
   align-items: center;
@@ -440,13 +414,8 @@ nav a.active {
   height: 8px;
 }
 
-.hub-logo i:nth-child(2) {
-  transform: skewX(28deg);
-}
 
-/* =========================
-   POINTER
-   ========================= */
+/* POINTER */
 
 .pointer {
   position: absolute;
@@ -488,9 +457,8 @@ nav a.active {
   z-index: 5;
 }
 
-/* =========================
-   STAND
-   ========================= */
+
+/* STAND */
 
 .stand {
   position: absolute;
@@ -502,25 +470,24 @@ nav a.active {
 
   background: #24170e;
 
-  clip-path: polygon(
-    10% 0,
-    90% 0,
-    100% 100%,
-    0 100%
-  );
+  clip-path:
+    polygon(
+      10% 0,
+      90% 0,
+      100% 100%,
+      0 100%
+    );
 
   box-shadow:
     0 10px 12px #4c321f33;
 }
 
-/* =========================
-   INFO
-   ========================= */
+
+/* INFO */
 
 .info {
   display: flex;
   justify-content: center;
-  gap: 0;
 
   border-top: 1px solid #cdbba7;
   border-bottom: 1px solid #cdbba7;
@@ -530,7 +497,6 @@ nav a.active {
 
 .info div {
   min-width: 190px;
-
   text-align: center;
 
   padding: 22px;
@@ -556,13 +522,11 @@ nav a.active {
   color: #765c4b;
 }
 
-/* =========================
-   HOW
-   ========================= */
+
+/* HOW */
 
 .how {
   display: grid;
-
   grid-template-columns: repeat(3, 1fr);
 
   gap: 20px;
@@ -580,35 +544,27 @@ nav a.active {
 
 .step {
   font-size: 12px;
-
   color: #d96b22;
-
   font-weight: 900;
 }
 
 .how h2 {
   font-size: 25px;
-
   margin: 12px 0 5px;
 }
 
 .how p {
   margin: 0;
-
   color: #6d594b;
-
   font-size: 14px;
 }
 
-/* =========================
-   ABOUT
-   ========================= */
+
+/* ABOUT */
 
 .about {
   display: flex;
-
   justify-content: space-between;
-
   gap: 60px;
 
   padding: 90px 9%;
@@ -618,21 +574,17 @@ nav a.active {
 
 .about h2 {
   font-size: 38px;
-
   margin: 0;
 }
 
 .about p {
   max-width: 520px;
-
   color: #5d4b40;
-
   line-height: 1.8;
 }
 
-/* =========================
-   FOOTER
-   ========================= */
+
+/* FOOTER */
 
 footer {
   text-align: center;
@@ -644,9 +596,183 @@ footer {
   color: #7b6656;
 }
 
-/* =========================
-   TABLET
-   ========================= */
+
+/* MODALS */
+
+.prize-modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.prize-modal.show {
+  display: flex;
+}
+
+.prize-modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(23, 16, 10, .78);
+
+  backdrop-filter: blur(7px);
+}
+
+.prize-modal-card {
+  position: relative;
+  z-index: 2;
+
+  width: min(430px, 100%);
+
+  padding: 36px 30px 30px;
+
+  text-align: center;
+
+  background: #f6eadb;
+
+  border: 2px solid #c79862;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.35);
+}
+
+.prize-close,
+.modal-close {
+  position: absolute;
+
+  right: 14px;
+  top: 10px;
+
+  width: 38px;
+  height: 38px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: #ead9bc;
+
+  color: #36200f;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+.prize-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.modal-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #24180f;
+
+  color: #f0a34b;
+
+  font-size: 38px;
+}
+
+.prize-modal-card h2 {
+  margin: 0 0 12px;
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.prize-modal-card p {
+  color: #6d594b;
+
+  line-height: 1.6;
+
+  font-size: 15px;
+}
+
+.prize-amount {
+  margin: 8px 0 22px;
+
+  font-size: 42px;
+
+  line-height: 1;
+
+  font-weight: 900;
+
+  color: #087448;
+}
+
+.connect-wallet,
+.connect-wallet-btn {
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 15px 20px;
+}
+
+.wallet-status {
+  min-height: 30px;
+
+  margin-top: 15px;
+
+  color: #147344;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  word-break: break-word;
+}
+
+.wallet-connected {
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: #dcefe2;
+
+  color: #147344;
+
+  font-weight: 800;
+}
+
+.wallet-note {
+  display: block;
+
+  margin-top: 18px;
+
+  color: #8a7465;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* MOBILE */
 
 @media (max-width: 850px) {
 
@@ -700,7 +826,6 @@ footer {
 
   .info {
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -729,9 +854,6 @@ footer {
   }
 }
 
-/* =========================
-   MOBILE
-   ========================= */
 
 @media (max-width: 420px) {
 
@@ -749,284 +871,17 @@ footer {
     height: 75px;
   }
 
-  /*
-     На маленьком экране
-     уменьшаем расстояние от центра.
-  */
-
   .segment span {
-    left: 92px;
-
-    width: 55px;
-
     font-size: 11px;
 
     transform:
-      translate(-50%, -50%)
-      rotate(calc(-1 * var(--angle)));
-  }
-
-  .segment small {
-    font-size: 6px;
+      rotate(calc(-1 * var(--angle)))
+      translate(25px, -4px);
   }
 
   .copy h1 {
     font-size: 40px;
   }
-}
-
-/* =========================
-   PRIZE / WALLET MODAL
-   ========================= */
-
-.prize-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 1000;
-
-  display: none;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-}
-
-.prize-modal.show {
-  display: flex;
-}
-
-.prize-modal-backdrop {
-  position: absolute;
-
-  inset: 0;
-
-  background: rgba(23, 16, 10, .78);
-
-  backdrop-filter: blur(7px);
-}
-
-.prize-modal-card {
-  position: relative;
-
-  z-index: 2;
-
-  width: min(430px, 100%);
-
-  padding: 36px 30px 30px;
-
-  text-align: center;
-
-  background: #f6eadb;
-
-  color: #171717;
-
-  border: 2px solid #c79862;
-
-  border-radius: 24px;
-
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.35);
-}
-
-.prize-close,
-.modal-close {
-  position: absolute;
-
-  right: 14px;
-  top: 10px;
-
-  width: 36px;
-  height: 36px;
-
-  border: 0;
-
-  border-radius: 50%;
-
-  background: #ead9bc;
-
-  color: #5e3819;
-
-  font-size: 25px;
-
-  line-height: 1;
-
-  cursor: pointer;
-}
-
-.prize-icon {
-  font-size: 48px;
-
-  margin-bottom: 8px;
-}
-
-.prize-modal-card .eyebrow {
-  margin-bottom: 8px;
-}
-
-.prize-modal-card h2 {
-  margin: 0 0 12px;
-
-  font-size: 30px;
-
-  font-weight: 900;
-}
-
-.prize-modal-card p {
-  color: #6d594b;
-
-  line-height: 1.6;
-}
-
-.prize-modal-card > p {
-  margin: 10px 0 5px;
-}
-
-.prize-amount {
-  margin: 8px 0 18px;
-
-  font-size: 42px;
-
-  line-height: 1;
-
-  font-weight: 900;
-
-  color: #087448;
-}
-
-.wallet-text {
-  font-size: 14px;
-
-  line-height: 1.6;
-}
-
-.connect-wallet,
-.connect-wallet-btn,
-.claim-btn {
-  border: 0;
-
-  border-radius: 28px;
-
-  padding: 14px 24px;
-
-  color: white;
-
-  background:
-    linear-gradient(
-      90deg,
-      #e66d22,
-      #147344
-    );
-
-  font-weight: 800;
-
-  cursor: pointer;
-}
-
-.connect-wallet {
-  width: 100%;
-
-  margin-top: 14px;
-
-  padding: 15px 20px;
-
-  font: 700 15px inherit;
-}
-
-.connect-wallet-btn {
-  width: 100%;
-
-  margin-top: 12px;
-}
-
-.claim-btn {
-  margin-top: 12px;
-}
-
-.connect-wallet:hover {
-  transform: translateY(-1px);
-}
-
-.connect-wallet:disabled {
-  opacity: .7;
-
-  cursor: wait;
-}
-
-.connect-wallet.connected {
-  background: #147344;
-}
-
-.wallet-status {
-  min-height: 44px;
-
-  margin-top: 15px;
-
-  color: #147344;
-
-  font-size: 13px;
-
-  line-height: 1.6;
-
-  word-break: break-word;
-}
-
-.wallet-connected {
-  margin-top: 18px;
-
-  padding: 12px;
-
-  border-radius: 12px;
-
-  background: #dcefe2;
-
-  color: #147344;
-
-  font-weight: 800;
-}
-
-.wallet-warning,
-.wallet-note {
-  display: block;
-
-  margin-top: 16px;
-
-  color: #876f5d;
-
-  font-size: 11px;
-
-  line-height: 1.5;
-}
-
-/* Modal icon */
-
-.modal-icon {
-  width: 70px;
-  height: 70px;
-
-  margin: 0 auto 18px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #24180f;
-
-  color: #f0a34b;
-
-  font-size: 38px;
-}
-
-/* =========================
-   MODAL MOBILE
-   ========================= */
-
-@media (max-width: 420px) {
 
   .prize-modal {
     padding: 15px;
