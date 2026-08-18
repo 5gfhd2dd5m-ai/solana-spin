@@ -291,23 +291,18 @@ nav a.active {
 
 .segment span {
   display: block;
-
   font-weight: 900;
-  font-size: 15px;
-
+  font-size: 18px;
   text-align: center;
-  line-height: 1;
-
+  line-height: 1.1;
   white-space: nowrap;
-
-  /* цифры не наклоняются */
-  transform:
-    rotate(calc(-1 * var(--angle)))
-    translate(34px, -7px);
+  transform: translate(32px, -8px);
 }
 
 .segment small {
-  font-size: 7px;
+  display: block;
+  font-size: 9px;
+  margin-top: 4px;
   font-weight: 700;
 }
 
