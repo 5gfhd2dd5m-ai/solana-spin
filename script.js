@@ -4,16 +4,13 @@ const result = document.getElementById("result");
 let rotation = 0;
 let spinning = false;
 
-
-/*
-  ДЕМО-РЕЗУЛЬТАТ
-
-  Для демонстрации результат всегда одинаковый.
-*/
+// Результат демо всегда 5 SOL
 const DEMO_PRIZE = "5 SOL";
 
 
-/* SPIN */
+/* =========================
+   SPIN
+========================= */
 
 function spin() {
 
@@ -23,25 +20,17 @@ function spin() {
 
   spinning = true;
 
-
   if (result) {
     result.textContent = "पहिया घूम रहा है…";
   }
 
-
-  /*
-    6 полных оборотов.
-    Результат демо при этом всегда 1 SOL.
-  */
-
+  // 6 полных оборотов
   rotation += 2160;
-
 
   if (wheel) {
     wheel.style.transform =
       `rotate(${rotation}deg)`;
   }
-
 
   setTimeout(() => {
 
@@ -62,20 +51,20 @@ function spin() {
       `;
     }
 
-
     spinning = false;
 
   }, 4700);
 }
 
 
-/* SCROLL */
+/* =========================
+   SCROLL TO WHEEL
+========================= */
 
 function scrollToWheel() {
 
   const wheelArea =
     document.getElementById("wheelArea");
-
 
   if (wheelArea) {
 
@@ -85,17 +74,17 @@ function scrollToWheel() {
     });
 
   }
-
 }
 
 
-/* WIN MODAL */
+/* =========================
+   PRIZE MODAL
+========================= */
 
 function openPrizeModal() {
 
   const modal =
     document.getElementById("prizeModal");
-
 
   if (modal) {
 
@@ -107,7 +96,6 @@ function openPrizeModal() {
     );
 
   }
-
 }
 
 
@@ -116,7 +104,6 @@ function closePrizeModal() {
   const modal =
     document.getElementById("prizeModal");
 
-
   if (modal) {
 
     modal.classList.remove("show");
@@ -127,26 +114,24 @@ function closePrizeModal() {
     );
 
   }
-
 }
 
 
-/* WALLET MODAL */
+/* =========================
+   WALLET MODAL
+========================= */
 
 function openModal() {
 
   const modal =
     document.getElementById("walletModal");
 
-
   const amount =
     document.getElementById("prizeAmount");
-
 
   if (amount) {
     amount.textContent = DEMO_PRIZE;
   }
-
 
   if (modal) {
 
@@ -158,7 +143,6 @@ function openModal() {
     );
 
   }
-
 }
 
 
@@ -166,7 +150,6 @@ function closeWalletModal() {
 
   const modal =
     document.getElementById("walletModal");
-
 
   if (modal) {
 
@@ -178,54 +161,78 @@ function closeWalletModal() {
     );
 
   }
-
 }
 
 
-/* PHANTOM */
+/* =========================
+   PHANTOM WALLET
+========================= */
 
 async function connectWallet() {
 
   const status =
     document.getElementById("walletStatus");
 
-
   try {
 
-    if (
-      !window.solana ||
-      !window.solana.isPhantom
-    ) {
+    // Ищем Phantom
+    const provider =
+      window.phantom?.solana ||
+      window.solana;
+
+    // Phantom не найден
+    if (!provider || !provider.isPhantom) {
 
       if (status) {
 
-        status.textContent =
-          "Phantom Wallet उपलब्ध नहीं है।";
+        status.innerHTML = `
+          <div>
+            Phantom Wallet не найден.
+            <br><br>
+            Открой этот сайт через приложение
+            Phantom и нажми кнопку подключения ещё раз.
+          </div>
+        `;
+
       }
 
       return;
     }
 
 
+    // Показываем статус
+    if (status) {
+      status.textContent =
+        "Подключение кошелька…";
+    }
+
+
+    // Подключение Phantom
     const response =
-      await window.solana.connect();
+      await provider.connect();
 
 
+    // Получаем публичный адрес
     const address =
       response.publicKey.toString();
 
 
+    // Показываем подключённый кошелёк
     if (status) {
 
       status.innerHTML = `
         <div class="wallet-connected">
+
           वॉलेट कनेक्ट हो गया ✅
+
           <br>
+
           <small>
             ${address.slice(0, 6)}
             ...
             ${address.slice(-4)}
           </small>
+
         </div>
       `;
 
@@ -233,22 +240,25 @@ async function connectWallet() {
 
   } catch (error) {
 
-    console.error(error);
-
+    console.error(
+      "Wallet connection error:",
+      error
+    );
 
     if (status) {
 
       status.textContent =
-        "वॉलेट कनेक्ट नहीं हो सका।";
+        "Подключение отменено или не удалось.";
 
     }
 
   }
-
 }
 
 
-/* ESC KEY */
+/* =========================
+   ESC — CLOSE MODALS
+========================= */
 
 document.addEventListener(
   "keydown",
