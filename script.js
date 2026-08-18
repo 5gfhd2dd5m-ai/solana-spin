@@ -8,32 +8,11 @@ const DEMO_PRIZE = "5 SOL";
 
 
 /* =========================
-   ПРОКРУТКА К КОЛЕСУ
-========================= */
-
-function scrollToWheel() {
-    const wheelArea = document.getElementById("wheelArea");
-
-    if (wheelArea) {
-        wheelArea.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    }
-}
-
-
-/* =========================
-   ВРАЩЕНИЕ КОЛЕСА
+   КОЛЕСО
 ========================= */
 
 function spin() {
     if (spinning) return;
-
-    if (!wheel) {
-        console.error("Элемент #wheel не найден");
-        return;
-    }
 
     spinning = true;
 
@@ -43,116 +22,95 @@ function spin() {
 
     rotation += 2160;
 
-    wheel.style.transition =
-        "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
+    if (wheel) {
+        wheel.style.transition =
+            "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
 
-    wheel.style.transform =
-        `rotate(${rotation}deg)`;
+        wheel.style.transform = `rotate(${rotation}deg)`;
+    }
 
-    setTimeout(function () {
+    setTimeout(() => {
 
         if (result) {
-            result.innerHTML =
-                `🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीते!`;
+            result.innerHTML = `
+                🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीते!
+            `;
         }
 
         spinning = false;
 
-        setTimeout(function () {
-            openModal();
-        }, 500);
+        /*
+         * ВАЖНО:
+         * Здесь больше НЕТ openModal().
+         *
+         * После выигрыша никакое окно
+         * автоматически не открывается.
+         */
 
     }, 4000);
 }
 
 
 /* =========================
-   ОКНО КОШЕЛЬКА
+   МОДАЛЬНОЕ ОКНО
+   Открывается только если
+   пользователь сам нажмёт
+   кнопку onclick="openModal()"
 ========================= */
 
 function openModal() {
     const modal = document.getElementById("walletModal");
 
-    if (!modal) return;
-
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-
-    document.body.style.overflow = "hidden";
+    if (modal) {
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
 }
 
 
 function closeModal() {
-    closeWalletModal();
+    const modal = document.getElementById("walletModal");
+
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
 }
 
 
 function closeWalletModal() {
-    const modal = document.getElementById("walletModal");
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-
-    document.body.style.overflow = "";
+    closeModal();
 }
 
 
 /* =========================
-   ОКНО ПОБЕДЫ
-========================= */
-
-function openPrizeModal() {
-    const modal = document.getElementById("prizeModal");
-
-    if (!modal) return;
-
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-
-    document.body.style.overflow = "hidden";
-}
-
-
-function closePrizeModal() {
-    const modal = document.getElementById("prizeModal");
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-
-    document.body.style.overflow = "";
-}
-
-
-/* =========================
-   ВЫБОР КОШЕЛЬКА
+   WALLET CHOOSER
 ========================= */
 
 function openWalletChooser() {
     const chooser = document.getElementById("walletChooser");
 
-    if (!chooser) return;
-
-    chooser.style.display = "flex";
-    chooser.setAttribute("aria-hidden", "false");
+    if (chooser) {
+        chooser.style.display = "flex";
+        chooser.setAttribute("aria-hidden", "false");
+    }
 }
 
 
 function closeWalletChooser() {
     const chooser = document.getElementById("walletChooser");
 
-    if (!chooser) return;
-
-    chooser.style.display = "none";
-    chooser.setAttribute("aria-hidden", "true");
+    if (chooser) {
+        chooser.style.display = "none";
+        chooser.setAttribute("aria-hidden", "true");
+    }
 }
 
 
 /* =========================
-   ВЫБРАННЫЙ КОШЕЛЁК
+   ВЫБОР КОШЕЛЬКА — ДЕМО
 ========================= */
 
 function connectSelectedWallet(walletName) {
@@ -161,35 +119,51 @@ function connectSelectedWallet(walletName) {
         document.getElementById("walletChooserStatus");
 
     if (status) {
-        status.innerHTML =
-            `<strong>${walletName}</strong><br>
-             Демо: подключение имитируется.`;
+        status.innerHTML = `
+            <strong>${walletName}</strong><br>
+            डेमो मोड में चुना गया।
+        `;
     }
-
-    setTimeout(function () {
-        closeWalletChooser();
-
-        const walletStatus =
-            document.getElementById("walletStatus");
-
-        if (walletStatus) {
-            walletStatus.innerHTML =
-                `✓ Выбран кошелёк: <strong>${walletName}</strong>`;
-        }
-    }, 800);
 }
 
 
 /* =========================
-   ЗАКРЫТИЕ ПО ESC
+   КНОПКА "ВАЛЕТ КОННЕКТ"
 ========================= */
 
-document.addEventListener("keydown", function(event) {
+function connectWallet() {
+    openWalletChooser();
+}
 
-    if (event.key === "Escape") {
-        closePrizeModal();
-        closeWalletModal();
-        closeWalletChooser();
+
+/* =========================
+   КЛИК ПО ФОНУ
+========================= */
+
+document.addEventListener("click", function(event) {
+
+    const modal = document.getElementById("walletModal");
+
+    if (modal && event.target === modal) {
+        closeModal();
     }
 
 });
+
+
+/* =========================
+   ПРОКРУТКА К КОЛЕСУ
+========================= */
+
+function scrollToWheel() {
+
+    const wheelArea =
+        document.getElementById("wheelArea");
+
+    if (wheelArea) {
+        wheelArea.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}
