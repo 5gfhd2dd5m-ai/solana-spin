@@ -11,16 +11,8 @@
     content="Solana India — Spin and Win demo"
   >
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap"
@@ -92,7 +84,7 @@
         अभी स्पिन करें <span>→</span>
       </button>
 
-      <!-- ОБЯЗАТЕЛЬНАЯ КНОПКА openModal() -->
+      <!-- REQUIRED: openModal() button -->
       <button
         class="connect-wallet"
         onclick="openModal()"
@@ -276,7 +268,7 @@
 
 
 <footer>
-  © 2026 Solana India 
+  © 2026 Solana India
 </footer>
 
 
@@ -386,8 +378,6 @@
       aria-live="polite"
     ></div>
 
-   
-
   </div>
 
 </div>
@@ -411,6 +401,7 @@
     <button
       class="wallet-chooser-close"
       onclick="closeWalletChooser()"
+      aria-label="Закрыть"
     >
       ×
     </button>
@@ -540,7 +531,7 @@
 </div>
 
 
-<!-- SCRIPT В САМОМ КОНЦЕ -->
+<!-- SCRIPT -->
 
 <script src="script.js"></script>
 
