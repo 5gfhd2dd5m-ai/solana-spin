@@ -416,7 +416,99 @@
 </div>
 
 
-<script src="script.js"></script>
+<script src="script.js"></script><!-- WALLET CHOOSER -->
+
+<div
+  class="wallet-chooser"
+  id="walletChooser"
+  aria-hidden="true"
+>
+
+  <div
+    class="wallet-chooser-backdrop"
+    onclick="closeWalletChooser()"
+  ></div>
+
+  <div class="wallet-chooser-card">
+
+    <button
+      class="wallet-chooser-close"
+      onclick="closeWalletChooser()"
+    >
+      ×
+    </button>
+
+    <div class="wallet-chooser-head">
+      <span class="wallet-help">?</span>
+
+      <h2>Connect Wallet</h2>
+    </div>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('Solflare')"
+    >
+      <span class="wallet-icon solflare">S</span>
+      <span>Solflare</span>
+      <b>POPULAR</b>
+    </button>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('Phantom')"
+    >
+      <span class="wallet-icon phantom">◒</span>
+      <span>Phantom</span>
+      <b>POPULAR</b>
+    </button>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('Trust Wallet')"
+    >
+      <span class="wallet-icon trust">◆</span>
+      <span>Trust Wallet</span>
+    </button>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('Jupiter')"
+    >
+      <span class="wallet-icon jupiter">◎</span>
+      <span>Jupiter</span>
+    </button>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('MetaMask')"
+    >
+      <span class="wallet-icon metamask">◇</span>
+      <span>MetaMask</span>
+    </button>
+
+    <button
+      class="wallet-option"
+      onclick="connectSelectedWallet('All Wallets')"
+    >
+      <span class="wallet-icon all-wallets">••</span>
+      <span>All Wallets</span>
+      <b>130+</b>
+    </button>
+
+    <div
+      id="walletChooserStatus"
+      class="wallet-chooser-status"
+    ></div>
+
+    <p class="wallet-safety">
+      यह केवल wallet connection है।
+      Seed phrase या private key कभी दर्ज न करें।
+    </p>
+
+  </div>
+
+</div>
+
 
 </body>
 </html>
