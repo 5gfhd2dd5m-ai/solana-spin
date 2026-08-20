@@ -110,7 +110,7 @@ function closeWalletChooser() {
 
 
 /* =========================
-   ВЫБОР КОШЕЛЬКА — ДЕМО
+   ВЫБОР КОШЕЛЬКА 
 ========================= */
 
 function connectSelectedWallet(walletName) {
