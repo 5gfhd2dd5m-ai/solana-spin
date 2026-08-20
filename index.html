@@ -1,328 +1,639 @@
 <!doctype html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Solana India — Spin & Win</title>
+<title>Solana India — Spin & Win</title>
 
-  <meta
-    name="description"
-    content="Solana India — Spin and Win demo"
-  >
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap');
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap"
-    rel="stylesheet"
-  >
+body{
+  min-height:100vh;
+  background:#f8ead8;
+  color:#17120e;
+  font-family:'Noto Sans Devanagari',Arial,sans-serif;
+  overflow-x:hidden;
+}
 
-  <link rel="stylesheet" href="style.css">
+.container{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:25px 18px 60px;
+  text-align:center;
+}
+
+/* HEADER */
+
+.logo{
+  color:#0d7b4b;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:4px;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:58px;
+  line-height:1.05;
+  font-weight:900;
+  margin-bottom:28px;
+}
+
+h1 .orange{
+  color:#ed5c12;
+}
+
+h1 .green{
+  color:#087a4b;
+}
+
+.subtitle{
+  font-size:27px;
+  margin-bottom:25px;
+}
+
+.line{
+  width:225px;
+  height:5px;
+  margin:0 auto 35px;
+  background:linear-gradient(
+    90deg,
+    #ed5c12 0 50%,
+    #087a4b 50% 100%
+  );
+}
+
+/* BUTTONS */
+
+.spin-btn,
+.wallet-btn{
+  border:0;
+  color:white;
+  background:linear-gradient(90deg,#f16b16,#087b4c);
+  border-radius:60px;
+  cursor:pointer;
+  font-family:inherit;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.spin-btn{
+  min-width:280px;
+  padding:20px 35px;
+  font-size:22px;
+}
+
+.spin-btn:active,
+.wallet-btn:active{
+  transform:scale(.98);
+}
+
+.wallet-btn{
+  width:90%;
+  max-width:760px;
+  padding:21px;
+  margin:25px auto 0;
+  display:block;
+  font-size:21px;
+}
+
+/* RESULT */
+
+.result{
+  min-height:65px;
+  margin:25px 0 25px;
+  color:#087b4c;
+  font-size:25px;
+  font-weight:800;
+}
+
+/* WHEEL */
+
+.wheel-area{
+  position:relative;
+  width:min(92vw,720px);
+  aspect-ratio:1;
+  margin:45px auto 0;
+}
+
+.pointer{
+  position:absolute;
+  z-index:20;
+  top:-48px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:25px solid transparent;
+  border-right:25px solid transparent;
+  border-top:58px solid #e9a13d;
+  filter:drop-shadow(0 4px 3px rgba(0,0,0,.4));
+}
+
+.pointer-label{
+  position:absolute;
+  z-index:21;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#f0dfc2;
+  padding:5px 12px;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+/* OUTER WHEEL */
+
+.wheel{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  padding:35px;
+  background:
+    radial-gradient(circle,
+      #b87b31 0 6%,
+      #23170e 6.5% 8.5%,
+      #b77b34 9% 10.5%,
+      #6d421c 11% 12%,
+      #2a1a0f 12.5% 100%
+    );
+  box-shadow:
+    0 12px 0 #21140d,
+    0 20px 35px rgba(0,0,0,.35);
+  transition:transform 4.7s cubic-bezier(.12,.72,.15,1);
+}
+
+/* COLORED DISC */
+
+.disc{
+  position:absolute;
+  inset:35px;
+  border-radius:50%;
+  overflow:hidden;
+
+  background:
+    conic-gradient(
+      from -15deg,
+      #f06418 0deg 30deg,
+      #087b4c 30deg 60deg,
+      #f06418 60deg 90deg,
+      #087b4c 90deg 120deg,
+      #f06418 120deg 150deg,
+      #087b4c 150deg 180deg,
+      #f06418 180deg 210deg,
+      #087b4c 210deg 240deg,
+      #f06418 240deg 270deg,
+      #087b4c 270deg 300deg,
+      #f06418 300deg 330deg,
+      #087b4c 330deg 360deg
+    );
+
+  box-shadow:
+    inset 0 0 0 8px #d99a4b,
+    inset 0 0 0 13px #3b2414;
+}
+
+/* LABELS */
+
+.labels{
+  position:absolute;
+  inset:35px;
+  border-radius:50%;
+  overflow:hidden;
+}
+
+.label{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100px;
+  height:50%;
+  margin-left:-50px;
+  transform-origin:50% 100%;
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+
+  padding-top:35px;
+
+  color:#090909;
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  font-size:23px;
+  line-height:1;
+}
+
+/*
+  Каждый label занимает один сектор.
+  Текст поворачивается вместе с сектором,
+  но сам текст переворачивается обратно.
+*/
+
+.label span{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(15deg);
+  white-space:nowrap;
+}
+
+.label small{
+  font-size:12px;
+  margin-top:6px;
+  font-weight:900;
+}
+
+/* 12 СЕКТОРОВ */
+
+.l1{
+  transform:rotate(0deg);
+}
+
+.l2{
+  transform:rotate(30deg);
+}
+
+.l3{
+  transform:rotate(60deg);
+}
+
+.l4{
+  transform:rotate(90deg);
+}
+
+.l5{
+  transform:rotate(120deg);
+}
+
+.l6{
+  transform:rotate(150deg);
+}
+
+.l7{
+  transform:rotate(180deg);
+}
+
+.l8{
+  transform:rotate(210deg);
+}
+
+.l9{
+  transform:rotate(240deg);
+}
+
+.l10{
+  transform:rotate(270deg);
+}
+
+.l11{
+  transform:rotate(300deg);
+}
+
+.l12{
+  transform:rotate(330deg);
+}
+
+/* CENTER */
+
+.center{
+  position:absolute;
+  z-index:10;
+  left:50%;
+  top:50%;
+  width:150px;
+  height:150px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#21160e;
+  border:9px solid #b77b32;
+  box-shadow:
+    inset 0 0 0 4px #21160e,
+    0 5px 10px rgba(0,0,0,.35);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sol{
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  font-size:36px;
+  color:#f47a1d;
+}
+
+.sol span{
+  color:#078052;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:430px;
+  background:#fff5e8;
+  border-radius:28px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.modal-title{
+  color:#087b4c;
+  font-size:30px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.prize{
+  color:#ed5c12;
+  font-size:42px;
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  margin:15px 0 20px;
+}
+
+.modal-text{
+  font-size:18px;
+  line-height:1.5;
+  margin-bottom:25px;
+}
+
+.claim-btn{
+  width:100%;
+  border:0;
+  border-radius:50px;
+  padding:18px;
+  background:linear-gradient(90deg,#ed6515,#087b4c);
+  color:white;
+  font-family:inherit;
+  font-size:21px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.close-btn{
+  margin-top:14px;
+  border:0;
+  background:transparent;
+  font-family:inherit;
+  font-size:17px;
+  color:#555;
+  cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .container{
+    padding-top:20px;
+  }
+
+  .logo{
+    font-size:14px;
+  }
+
+  h1{
+    font-size:48px;
+  }
+
+  .subtitle{
+    font-size:22px;
+  }
+
+  .spin-btn{
+    min-width:270px;
+    font-size:19px;
+  }
+
+  .wallet-btn{
+    width:94%;
+    font-size:18px;
+  }
+
+  .result{
+    font-size:22px;
+  }
+
+  .wheel-area{
+    width:94vw;
+    margin-top:75px;
+  }
+
+  .wheel{
+    padding:22px;
+  }
+
+  .disc,
+  .labels{
+    inset:22px;
+  }
+
+  .label{
+    font-size:18px;
+    padding-top:27px;
+  }
+
+  .label small{
+    font-size:10px;
+    margin-top:4px;
+  }
+
+  .center{
+    width:105px;
+    height:105px;
+    border-width:7px;
+  }
+
+  .sol{
+    font-size:25px;
+  }
+
+  .pointer{
+    top:-43px;
+    border-left-width:20px;
+    border-right-width:20px;
+    border-top-width:48px;
+  }
+
+  .pointer-label{
+    top:-70px;
+    font-size:11px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header class="nav">
+<div class="container">
 
-  <a class="brand" href="#home">
-    <span class="brand-mark">
-      <i></i>
-      <i></i>
-      <i></i>
-    </span>
+  <div class="logo">SOLANA INDIA</div>
 
-    <span>
-      SOLANA <b>INDIA</b>
-    </span>
-  </a>
+  <h1>
+    <span class="orange">जीतो.</span><br>
+    <span class="green">सोलाना.</span>
+  </h1>
 
-  <nav>
-    <a class="active" href="#home">स्पिन</a>
-    <a href="#rewards">रिवॉर्ड्स</a>
-    <a href="#how">विवरण</a>
-    <a href="#about">हमारे बारे में</a>
-  </nav>
+  <div class="subtitle">
+    पहिया घुमाएँ! SOL जीतें
+  </div>
 
-  <button
-    class="nav-cta"
-    onclick="scrollToWheel()"
-  >
-    अभी स्पिन करें <span>→</span>
+  <div class="line"></div>
+
+  <button class="spin-btn" onclick="spin()">
+    अभी स्पिन करें →
   </button>
 
-</header>
+  <button class="wallet-btn" onclick="openModal()">
+    वॉलेट कनेक्ट करें
+  </button>
 
+  <div class="result" id="result"></div>
 
-<main id="home">
+  <!-- WHEEL -->
 
-  <section class="hero">
+  <div class="wheel-area">
 
-    <div class="copy">
+    <div class="pointer-label">WINNER</div>
 
-      <div class="eyebrow">
-        SOLANA INDIA
-      </div>
+    <div class="pointer"></div>
 
-      <h1>
-        स्पिन करें.<br>
-        <em>जीतें.</em><br>
-        <strong>सोलाना.</strong>
-      </h1>
+    <div class="wheel" id="wheel">
 
-      <p>
-        पहिया घुमाएँ! SOL जीतें।
-      </p>
+      <div class="disc"></div>
 
-      <div class="rule"></div>
+      <div class="labels">
 
-      <button
-        class="hero-cta"
-        onclick="spin()"
-      >
-        अभी स्पिन करें <span>→</span>
-      </button>
+        <div class="label l1">
+          <span>0.05<small>SOL</small></span>
+        </div>
 
-      <!-- REQUIRED: openModal() button -->
-      <button
-        class="connect-wallet"
-        onclick="openModal()"
-      >
-        वॉलेट कनेक्ट करें
-      </button>
+        <div class="label l2">
+          <span>0.1<small>SOL</small></span>
+        </div>
 
-      <div
-        class="result"
-        id="result"
-        aria-live="polite"
-      ></div>
+        <div class="label l3">
+          <span>0.2<small>SOL</small></span>
+        </div>
 
-    </div>
+        <div class="label l4">
+          <span>0.5<small>SOL</small></span>
+        </div>
 
+        <div class="label l5">
+          <span>1<small>SOL</small></span>
+        </div>
 
-    <div
-      class="wheel-wrap"
-      id="wheelArea"
-    >
+        <div class="label l6">
+          <span>2<small>SOL</small></span>
+        </div>
 
-      <div class="winner">
-        WINNER
-      </div>
+        <div class="label l7">
+          <span>3<small>SOL</small></span>
+        </div>
 
-      <div class="pointer"></div>
+        <div class="label l8">
+          <span>5<small>SOL</small></span>
+        </div>
 
-      <div class="wheel-shadow"></div>
+        <div class="label l9">
+          <span>10<small>SOL</small></span>
+        </div>
 
-      <div
-        class="wheel"
-        id="wheel"
-      >
+        <div class="label l10">
+          <span>20<small>SOL</small></span>
+        </div>
 
-        <div class="wheel-inner">
+        <div class="label l11">
+          <span>50<small>SOL</small></span>
+        </div>
 
-          <div class="segment s1">
-            <span>0.05<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s2">
-            <span>0.1<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s3">
-            <span>0.2<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s4">
-            <span>0.5<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s5">
-            <span>1<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s6">
-            <span>2<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s7">
-            <span>3<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s8">
-            <span>5<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s9">
-            <span>10<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s10">
-            <span>20<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s11">
-            <span>50<br><small>SOL</small></span>
-          </div>
-
-          <div class="segment s12">
-            <span>100<br><small>SOL</small></span>
-          </div>
-
-          <div class="hub">
-            <span class="hub-logo">
-              <i></i>
-              <i></i>
-              <i></i>
-            </span>
-          </div>
-
+        <div class="label l12">
+          <span>100<small>SOL</small></span>
         </div>
 
       </div>
 
-      <div class="stand"></div>
-
-    </div>
-
-  </section>
-
-
-  <section class="info" id="rewards">
-
-    <div>
-      <span>12</span>
-      <small>इनाम</small>
-    </div>
-
-    <div>
-      <span>SOL</span>
-      <small>रिवॉर्ड टोकन</small>
-    </div>
-
-    <div>
-      <span>1×</span>
-      <small>प्रति दिन स्पिन</small>
-    </div>
-
-  </section>
-
-
-  <section class="how" id="how">
-
-    <div>
-      <span class="step">01</span>
-
-      <h2>स्पिन करें</h2>
-
-      <p>
-        स्पिन बटन दबाएँ और पहिया घूमने दें।
-      </p>
-    </div>
-
-    <div>
-      <span class="step">02</span>
-
-      <h2>जीतें</h2>
-
-      <p>
-        विजेता तीर के नीचे दिखाई देगा।
-      </p>
-    </div>
-
-    <div>
-      <span class="step">03</span>
-
-      <h2>रिवॉर्ड पाएँ</h2>
-
-      <p>
-        डेमो परिणाम देखने के लिए जारी रखें।
-      </p>
-    </div>
-
-  </section>
-
-
-  <section class="about" id="about">
-
-    <div>
-
-      <div class="eyebrow">
-        SOLANA INDIA
+      <div class="center">
+        <div class="sol">S<span>◎</span></div>
       </div>
 
-      <h2>
-        कम्युनिटी के लिए बनाया गया।
-      </h2>
-
     </div>
 
-    <p>
-      यह Solana India का डेमो स्पिन अनुभव है।
-      डेमो में परिणाम हमेशा 5 SOL दिखाया जाता है।
-    </p>
+  </div>
 
-  </section>
-
-</main>
-
-
-<footer>
-  © 2026 Solana India
-</footer>
+</div>
 
 
 <!-- WIN MODAL -->
 
-<div
-  class="prize-modal"
-  id="prizeModal"
-  aria-hidden="true"
->
+<div class="modal" id="prizeModal">
 
-  <div
-    class="prize-modal-backdrop"
-    onclick="closePrizeModal()"
-  ></div>
+  <div class="modal-box">
 
-  <div class="prize-modal-card">
+    <div class="modal-title">
+      🎉 बधाई!
+    </div>
 
-    <button
-      class="prize-close"
-      onclick="closePrizeModal()"
-      aria-label="बंद करें"
-    >
-      ×
+    <div class="modal-text">
+      आपने जीता:
+    </div>
+
+    <div class="prize" id="prizeAmount">
+      1 SOL
+    </div>
+
+    <div class="modal-text">
+      अपना पुरस्कार प्राप्त करने के लिए नीचे दिए गए बटन पर क्लिक करें।
+    </div>
+
+    <button class="claim-btn" onclick="openModal()">
+      प्राप्त करें SOL →
     </button>
 
-    <div class="prize-icon">
-      🎉
-    </div>
-
-    <div class="eyebrow">
-      SOLANA INDIA
-    </div>
-
-    <h2>
-      बधाई हो!
-    </h2>
-
-    <p>
-      आपने जीता
-    </p>
-
-    <div
-      class="prize-amount"
-      id="prizeAmount"
-    >
-      5 SOL
-    </div>
-
-    <button
-      class="connect-wallet"
-      onclick="openModal()"
-    >
-      वॉलेट कनेक्ट करें
+    <button class="close-btn" onclick="closePrizeModal()">
+      बंद करें
     </button>
 
   </div>
@@ -330,210 +641,154 @@
 </div>
 
 
-<!-- WALLET MODAL -->
+<!-- GET / WALLET MODAL -->
 
-<div
-  class="prize-modal"
-  id="walletModal"
-  aria-hidden="true"
->
+<div class="modal" id="walletModal">
 
-  <div
-    class="prize-modal-backdrop"
-    onclick="closeWalletModal()"
-  ></div>
+  <div class="modal-box">
 
-  <div class="prize-modal-card">
-
-    <button
-      class="modal-close"
-      onclick="closeWalletModal()"
-      aria-label="बंद करें"
-    >
-      ×
-    </button>
-
-    <div class="modal-icon">
-      ◎
+    <div class="modal-title">
+      💰 प्राप्त करें
     </div>
 
-    <h2>
-      SOL प्राप्त करें
-    </h2>
+    <div class="prize">
+      1 SOL
+    </div>
 
-    <p>
-      डेमो जारी रखने के लिए वॉलेट चुनें।
-    </p>
+    <div class="modal-text">
+      यह демонстрационная версия сайта.
+      Реальная выплата SOL здесь не выполняется.
+    </div>
 
-    <button
-      class="connect-wallet-btn"
-      onclick="openWalletChooser()"
-    >
-      वॉलेट चुनें
+    <button class="claim-btn" onclick="closeModal()">
+      Продолжить
     </button>
 
-    <div
-      id="walletStatus"
-      class="wallet-status"
-      aria-live="polite"
-    ></div>
+    <button class="close-btn" onclick="closeModal()">
+      Закрыть
+    </button>
 
   </div>
 
 </div>
 
 
-<!-- WALLET CHOOSER -->
+<script>
 
-<div
-  class="wallet-chooser"
-  id="walletChooser"
-  aria-hidden="true"
->
+const wheel = document.getElementById("wheel");
+const result = document.getElementById("result");
 
-  <div
-    class="wallet-chooser-backdrop"
-    onclick="closeWalletChooser()"
-  ></div>
+const prizeModal = document.getElementById("prizeModal");
+const walletModal = document.getElementById("walletModal");
 
-  <div class="wallet-chooser-card">
+let rotation = 0;
+let spinning = false;
 
-    <button
-      class="wallet-chooser-close"
-      onclick="closeWalletChooser()"
-      aria-label="Закрыть"
-    >
-      ×
-    </button>
+/*
+  Для демонстрации выигрыш всегда 1 SOL.
+  Можно поменять на любую сумму.
+*/
 
-    <div class="wallet-chooser-head">
-
-      <span class="wallet-help">
-        ?
-      </span>
-
-      <h2>
-        Connect Wallet
-      </h2>
-
-    </div>
+const DEMO_PRIZE = "1 SOL";
 
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('Solflare')"
-    >
-      <span class="wallet-icon solflare">
-        S
-      </span>
+function spin(){
 
-      <span>
-        Solflare
-      </span>
+  if(spinning){
+    return;
+  }
 
-      <b>
-        POPULAR
-      </b>
-    </button>
+  spinning = true;
 
+  result.textContent = "पहिया घूम रहा है…";
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('Phantom')"
-    >
-      <span class="wallet-icon phantom">
-        ◒
-      </span>
+  /*
+    6 полных оборотов.
+    Дополнительные 360 градусов нужны,
+    чтобы колесо красиво остановилось.
+  */
 
-      <span>
-        Phantom
-      </span>
+  rotation += 2160;
 
-      <b>
-        POPULAR
-      </b>
-    </button>
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
 
+  setTimeout(function(){
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('Trust Wallet')"
-    >
-      <span class="wallet-icon trust">
-        ◆
-      </span>
+    result.innerHTML =
+      `🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीता!`;
 
-      <span>
-        Trust Wallet
-      </span>
-    </button>
+    spinning = false;
+
+    /*
+      Открываем окно автоматически
+      после остановки колеса.
+    */
+
+    setTimeout(function(){
+      document.getElementById("prizeAmount").textContent =
+        DEMO_PRIZE;
+
+      prizeModal.classList.add("show");
+    },500);
+
+  },4700);
+}
 
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('Jupiter')"
-    >
-      <span class="wallet-icon jupiter">
-        ◎
-      </span>
+/*
+  Открыть окно "Получить"
+*/
 
-      <span>
-        Jupiter
-      </span>
-    </button>
+function openModal(){
+
+  prizeModal.classList.remove("show");
+
+  walletModal.classList.add("show");
+}
 
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('MetaMask')"
-    >
-      <span class="wallet-icon metamask">
-        ◇
-      </span>
+/*
+  Закрыть окно получения
+*/
 
-      <span>
-        MetaMask
-      </span>
-    </button>
+function closeModal(){
+
+  walletModal.classList.remove("show");
+}
 
 
-    <button
-      class="wallet-option"
-      onclick="connectSelectedWallet('All Wallets')"
-    >
-      <span class="wallet-icon all-wallets">
-        ••
-      </span>
+/*
+  Закрыть окно выигрыша
+*/
 
-      <span>
-        All Wallets
-      </span>
+function closePrizeModal(){
 
-      <b>
-        130+
-      </b>
-    </button>
+  prizeModal.classList.remove("show");
+}
 
 
-    <div
-      id="walletChooserStatus"
-      class="wallet-chooser-status"
-    ></div>
+/*
+  Закрытие по нажатию вне окна
+*/
 
+prizeModal.addEventListener("click", function(e){
 
-    <p class="wallet-safety">
-      Демо-режим: реальные транзакции не выполняются.
-      Seed phrase или private key никогда не требуются.
-    </p>
+  if(e.target === prizeModal){
+    closePrizeModal();
+  }
 
-  </div>
+});
 
-</div>
+walletModal.addEventListener("click", function(e){
 
+  if(e.target === walletModal){
+    closeModal();
+  }
 
-<!-- SCRIPT -->
+});
 
-<script src="script.js"></script>
+</script>
 
 </body>
 </html>
