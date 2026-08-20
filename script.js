@@ -4,7 +4,7 @@ const result = document.getElementById("result");
 let rotation = 0;
 let spinning = false;
 
-const DEMO_PRIZE = "5 SOL";
+const PRIZE = "5 SOL";
 
 
 /* =========================
@@ -33,7 +33,7 @@ function spin() {
 
         if (result) {
             result.innerHTML = `
-                🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीते!
+                🎉 बधाई! आपने <strong>${PRIZE}</strong> जीते!
             `;
         }
 
