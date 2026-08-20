@@ -1,505 +1,457 @@
-<!doctype html>
-<html lang="hi">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Solana India — Spin & Win</title>
+<title>Spin & Win — SOL Rewards</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap');
-
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  min-height:100vh;
-  background:#f8ead8;
-  color:#17120e;
-  font-family:'Noto Sans Devanagari',Arial,sans-serif;
-  overflow-x:hidden;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 0%,#111d4d 0%,#050914 45%,#02040a 100%);
+    color:#fff;
+    font-family:Arial,sans-serif;
+    overflow-x:hidden;
 }
 
 .container{
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  padding:25px 18px 60px;
-  text-align:center;
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    padding:35px 16px 80px;
+    text-align:center;
 }
 
-/* HEADER */
-
 .logo{
-  color:#0d7b4b;
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:4px;
-  margin-bottom:20px;
+    color:#22d3ee;
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:5px;
+    margin-bottom:20px;
 }
 
 h1{
-  font-size:58px;
-  line-height:1.05;
-  font-weight:900;
-  margin-bottom:28px;
+    font-size:56px;
+    line-height:1;
+    font-weight:900;
+    margin-bottom:15px;
 }
 
-h1 .orange{
-  color:#ed5c12;
-}
-
-h1 .green{
-  color:#087a4b;
+h1 span{
+    background:linear-gradient(90deg,#22d3ee,#3b82f6,#a855f7);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .subtitle{
-  font-size:27px;
-  margin-bottom:25px;
+    color:#aebbd8;
+    font-size:21px;
+    margin-bottom:28px;
 }
 
-.line{
-  width:225px;
-  height:5px;
-  margin:0 auto 35px;
-  background:linear-gradient(
-    90deg,
-    #ed5c12 0 50%,
-    #087a4b 50% 100%
-  );
+.spin-button{
+    border:0;
+    border-radius:50px;
+    padding:18px 48px;
+    background:linear-gradient(90deg,#06b6d4,#7c3aed);
+    color:#fff;
+    font-size:20px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(34,211,238,.25);
 }
 
-/* BUTTONS */
-
-.spin-btn,
-.wallet-btn{
-  border:0;
-  color:white;
-  background:linear-gradient(90deg,#f16b16,#087b4c);
-  border-radius:60px;
-  cursor:pointer;
-  font-family:inherit;
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
+.spin-button:active{
+    transform:scale(.97);
 }
 
-.spin-btn{
-  min-width:280px;
-  padding:20px 35px;
-  font-size:22px;
+.wallet-button{
+    display:block;
+    width:min(650px,92%);
+    margin:18px auto 0;
+    padding:17px;
+    border-radius:50px;
+    background:#07101f;
+    border:1px solid #22d3ee;
+    color:#fff;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
 }
-
-.spin-btn:active,
-.wallet-btn:active{
-  transform:scale(.98);
-}
-
-.wallet-btn{
-  width:90%;
-  max-width:760px;
-  padding:21px;
-  margin:25px auto 0;
-  display:block;
-  font-size:21px;
-}
-
-/* RESULT */
 
 .result{
-  min-height:65px;
-  margin:25px 0 25px;
-  color:#087b4c;
-  font-size:25px;
-  font-weight:800;
+    min-height:55px;
+    margin-top:24px;
+    color:#22d3ee;
+    font-size:23px;
+    font-weight:900;
 }
 
 /* WHEEL */
 
 .wheel-area{
-  position:relative;
-  width:min(92vw,720px);
-  aspect-ratio:1;
-  margin:45px auto 0;
+    position:relative;
+    width:min(94vw,680px);
+    aspect-ratio:1;
+    margin:85px auto 0;
 }
 
 .pointer{
-  position:absolute;
-  z-index:20;
-  top:-48px;
-  left:50%;
-  transform:translateX(-50%);
-  width:0;
-  height:0;
-  border-left:25px solid transparent;
-  border-right:25px solid transparent;
-  border-top:58px solid #e9a13d;
-  filter:drop-shadow(0 4px 3px rgba(0,0,0,.4));
+    position:absolute;
+    z-index:30;
+    top:-45px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0;
+    height:0;
+    border-left:24px solid transparent;
+    border-right:24px solid transparent;
+    border-top:55px solid #22d3ee;
+    filter:drop-shadow(0 0 8px rgba(34,211,238,.8));
 }
 
 .pointer-label{
-  position:absolute;
-  z-index:21;
-  top:-80px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#f0dfc2;
-  padding:5px 12px;
-  font-family:Arial,sans-serif;
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:2px;
+    position:absolute;
+    z-index:31;
+    top:-78px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:7px 13px;
+    border-radius:8px;
+    background:#07101f;
+    border:1px solid #22d3ee;
+    color:#22d3ee;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:2px;
 }
 
-/* OUTER WHEEL */
+/* OUTER FRAME */
 
 .wheel{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  padding:35px;
-  background:
-    radial-gradient(circle,
-      #b87b31 0 6%,
-      #23170e 6.5% 8.5%,
-      #b77b34 9% 10.5%,
-      #6d421c 11% 12%,
-      #2a1a0f 12.5% 100%
-    );
-  box-shadow:
-    0 12px 0 #21140d,
-    0 20px 35px rgba(0,0,0,.35);
-  transition:transform 4.7s cubic-bezier(.12,.72,.15,1);
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    padding:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22d3ee,
+            #2563eb,
+            #7c3aed,
+            #22d3ee
+        );
+
+    box-shadow:
+        0 0 0 7px #07101f,
+        0 0 40px rgba(34,211,238,.35),
+        0 20px 60px rgba(0,0,0,.7);
+
+    transition:
+        transform 4.7s cubic-bezier(.12,.72,.15,1);
 }
 
-/* COLORED DISC */
+/* COLORED SECTORS */
 
 .disc{
-  position:absolute;
-  inset:35px;
-  border-radius:50%;
-  overflow:hidden;
+    position:absolute;
+    inset:24px;
+    border-radius:50%;
+    overflow:hidden;
 
-  background:
-    conic-gradient(
-      from -15deg,
-      #f06418 0deg 30deg,
-      #087b4c 30deg 60deg,
-      #f06418 60deg 90deg,
-      #087b4c 90deg 120deg,
-      #f06418 120deg 150deg,
-      #087b4c 150deg 180deg,
-      #f06418 180deg 210deg,
-      #087b4c 210deg 240deg,
-      #f06418 240deg 270deg,
-      #087b4c 270deg 300deg,
-      #f06418 300deg 330deg,
-      #087b4c 330deg 360deg
-    );
+    background:
+        conic-gradient(
+            from -15deg,
 
-  box-shadow:
-    inset 0 0 0 8px #d99a4b,
-    inset 0 0 0 13px #3b2414;
+            #2563eb 0deg 30deg,
+            #7c3aed 30deg 60deg,
+            #0891b2 60deg 90deg,
+            #4f46e5 90deg 120deg,
+
+            #06b6d4 120deg 150deg,
+            #7c3aed 150deg 180deg,
+            #2563eb 180deg 210deg,
+            #0891b2 210deg 240deg,
+
+            #4f46e5 240deg 270deg,
+            #06b6d4 270deg 300deg,
+            #7c3aed 300deg 330deg,
+            #2563eb 330deg 360deg
+        );
+
+    box-shadow:
+        inset 0 0 0 5px #22d3ee,
+        inset 0 0 0 9px #07101f;
 }
 
-/* LABELS */
+/* NUMBERS */
 
 .labels{
-  position:absolute;
-  inset:35px;
-  border-radius:50%;
-  overflow:hidden;
+    position:absolute;
+    inset:24px;
+    border-radius:50%;
+    overflow:hidden;
 }
 
 .label{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:100px;
-  height:50%;
-  margin-left:-50px;
-  transform-origin:50% 100%;
+    position:absolute;
+    left:50%;
+    top:50%;
 
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
+    width:110px;
+    height:50%;
 
-  padding-top:35px;
+    margin-left:-55px;
 
-  color:#090909;
-  font-family:Arial,sans-serif;
-  font-weight:900;
-  font-size:23px;
-  line-height:1;
+    transform-origin:50% 100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    padding-top:32px;
+
+    color:#fff;
+    font-size:20px;
+    font-weight:900;
+
+    text-shadow:
+        0 2px 4px rgba(0,0,0,.8);
 }
 
-/*
-  Каждый label занимает один сектор.
-  Текст поворачивается вместе с сектором,
-  но сам текст переворачивается обратно.
-*/
-
 .label span{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  transform:rotate(15deg);
-  white-space:nowrap;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    white-space:nowrap;
+    transform:rotate(15deg);
 }
 
 .label small{
-  font-size:12px;
-  margin-top:6px;
-  font-weight:900;
+    margin-top:5px;
+    font-size:11px;
 }
 
-/* 12 СЕКТОРОВ */
+/* 12 SECTORS */
 
-.l1{
-  transform:rotate(0deg);
-}
-
-.l2{
-  transform:rotate(30deg);
-}
-
-.l3{
-  transform:rotate(60deg);
-}
-
-.l4{
-  transform:rotate(90deg);
-}
-
-.l5{
-  transform:rotate(120deg);
-}
-
-.l6{
-  transform:rotate(150deg);
-}
-
-.l7{
-  transform:rotate(180deg);
-}
-
-.l8{
-  transform:rotate(210deg);
-}
-
-.l9{
-  transform:rotate(240deg);
-}
-
-.l10{
-  transform:rotate(270deg);
-}
-
-.l11{
-  transform:rotate(300deg);
-}
-
-.l12{
-  transform:rotate(330deg);
-}
+.l1{transform:rotate(0deg);}
+.l2{transform:rotate(30deg);}
+.l3{transform:rotate(60deg);}
+.l4{transform:rotate(90deg);}
+.l5{transform:rotate(120deg);}
+.l6{transform:rotate(150deg);}
+.l7{transform:rotate(180deg);}
+.l8{transform:rotate(210deg);}
+.l9{transform:rotate(240deg);}
+.l10{transform:rotate(270deg);}
+.l11{transform:rotate(300deg);}
+.l12{transform:rotate(330deg);}
 
 /* CENTER */
 
 .center{
-  position:absolute;
-  z-index:10;
-  left:50%;
-  top:50%;
-  width:150px;
-  height:150px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:#21160e;
-  border:9px solid #b77b32;
-  box-shadow:
-    inset 0 0 0 4px #21160e,
-    0 5px 10px rgba(0,0,0,.35);
+    position:absolute;
+    z-index:20;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    left:50%;
+    top:50%;
+
+    width:140px;
+    height:140px;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle,#111b36,#03060d);
+
+    border:7px solid #22d3ee;
+
+    box-shadow:
+        0 0 25px rgba(34,211,238,.45),
+        inset 0 0 20px rgba(124,58,237,.35);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.sol{
-  font-family:Arial,sans-serif;
-  font-weight:900;
-  font-size:36px;
-  color:#f47a1d;
-}
+.solana-mark{
+    font-size:30px;
+    font-weight:900;
 
-.sol span{
-  color:#078052;
+    background:
+        linear-gradient(90deg,#22d3ee,#7c3aed);
+
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 /* MODAL */
 
 .modal{
-  position:fixed;
-  z-index:1000;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.65);
+    position:fixed;
+    inset:0;
+    z-index:1000;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.78);
 }
 
 .modal.show{
-  display:flex;
+    display:flex;
 }
 
 .modal-box{
-  width:100%;
-  max-width:430px;
-  background:#fff5e8;
-  border-radius:28px;
-  padding:35px 25px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
-  animation:modalIn .3s ease;
+    width:100%;
+    max-width:430px;
+
+    padding:34px 25px;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(145deg,#101b35,#050914);
+
+    border:1px solid #22d3ee;
+
+    box-shadow:
+        0 0 50px rgba(34,211,238,.2),
+        0 25px 80px rgba(0,0,0,.7);
+
+    animation:popup .3s ease;
 }
 
-@keyframes modalIn{
-  from{
-    opacity:0;
-    transform:scale(.8);
-  }
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
+@keyframes popup{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 
 .modal-title{
-  color:#087b4c;
-  font-size:30px;
-  font-weight:900;
-  margin-bottom:12px;
+    font-size:29px;
+    font-weight:900;
+    color:#22d3ee;
 }
 
 .prize{
-  color:#ed5c12;
-  font-size:42px;
-  font-family:Arial,sans-serif;
-  font-weight:900;
-  margin:15px 0 20px;
+    margin:18px 0;
+
+    font-size:46px;
+    font-weight:900;
+
+    background:
+        linear-gradient(90deg,#22d3ee,#7c3aed);
+
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .modal-text{
-  font-size:18px;
-  line-height:1.5;
-  margin-bottom:25px;
+    color:#aebbd8;
+    font-size:17px;
+    line-height:1.5;
+    margin-bottom:25px;
 }
 
-.claim-btn{
-  width:100%;
-  border:0;
-  border-radius:50px;
-  padding:18px;
-  background:linear-gradient(90deg,#ed6515,#087b4c);
-  color:white;
-  font-family:inherit;
-  font-size:21px;
-  font-weight:800;
-  cursor:pointer;
+.claim-button{
+    width:100%;
+    padding:18px;
+
+    border:0;
+    border-radius:50px;
+
+    background:
+        linear-gradient(90deg,#06b6d4,#7c3aed);
+
+    color:white;
+    font-size:19px;
+    font-weight:900;
+    cursor:pointer;
 }
 
-.close-btn{
-  margin-top:14px;
-  border:0;
-  background:transparent;
-  font-family:inherit;
-  font-size:17px;
-  color:#555;
-  cursor:pointer;
+.close-button{
+    margin-top:14px;
+    border:0;
+    background:none;
+    color:#8995ad;
+    font-size:16px;
+    cursor:pointer;
 }
 
 /* MOBILE */
 
 @media(max-width:600px){
 
-  .container{
-    padding-top:20px;
-  }
+    .container{
+        padding-top:25px;
+    }
 
-  .logo{
-    font-size:14px;
-  }
+    h1{
+        font-size:43px;
+    }
 
-  h1{
-    font-size:48px;
-  }
+    .subtitle{
+        font-size:18px;
+    }
 
-  .subtitle{
-    font-size:22px;
-  }
+    .wheel-area{
+        width:94vw;
+        margin-top:80px;
+    }
 
-  .spin-btn{
-    min-width:270px;
-    font-size:19px;
-  }
+    .wheel{
+        padding:18px;
+    }
 
-  .wallet-btn{
-    width:94%;
-    font-size:18px;
-  }
+    .disc,
+    .labels{
+        inset:18px;
+    }
 
-  .result{
-    font-size:22px;
-  }
+    .label{
+        width:90px;
+        margin-left:-45px;
+        padding-top:27px;
+        font-size:16px;
+    }
 
-  .wheel-area{
-    width:94vw;
-    margin-top:75px;
-  }
+    .label small{
+        font-size:9px;
+    }
 
-  .wheel{
-    padding:22px;
-  }
+    .center{
+        width:105px;
+        height:105px;
+    }
 
-  .disc,
-  .labels{
-    inset:22px;
-  }
+    .solana-mark{
+        font-size:21px;
+    }
 
-  .label{
-    font-size:18px;
-    padding-top:27px;
-  }
-
-  .label small{
-    font-size:10px;
-    margin-top:4px;
-  }
-
-  .center{
-    width:105px;
-    height:105px;
-    border-width:7px;
-  }
-
-  .sol{
-    font-size:25px;
-  }
-
-  .pointer{
-    top:-43px;
-    border-left-width:20px;
-    border-right-width:20px;
-    border-top-width:48px;
-  }
-
-  .pointer-label{
-    top:-70px;
-    font-size:11px;
-  }
+    .pointer{
+        top:-42px;
+    }
 }
 </style>
 </head>
@@ -508,285 +460,344 @@ h1 .green{
 
 <div class="container">
 
-  <div class="logo">SOLANA INDIA</div>
-
-  <h1>
-    <span class="orange">जीतो.</span><br>
-    <span class="green">सोलाना.</span>
-  </h1>
-
-  <div class="subtitle">
-    पहिया घुमाएँ! SOL जीतें
-  </div>
-
-  <div class="line"></div>
-
-  <button class="spin-btn" onclick="spin()">
-    अभी स्पिन करें →
-  </button>
-
-  <button class="wallet-btn" onclick="openModal()">
-    वॉलेट कनेक्ट करें
-  </button>
-
-  <div class="result" id="result"></div>
-
-  <!-- WHEEL -->
-
-  <div class="wheel-area">
-
-    <div class="pointer-label">WINNER</div>
-
-    <div class="pointer"></div>
-
-    <div class="wheel" id="wheel">
-
-      <div class="disc"></div>
-
-      <div class="labels">
-
-        <div class="label l1">
-          <span>0.05<small>SOL</small></span>
-        </div>
-
-        <div class="label l2">
-          <span>0.1<small>SOL</small></span>
-        </div>
-
-        <div class="label l3">
-          <span>0.2<small>SOL</small></span>
-        </div>
-
-        <div class="label l4">
-          <span>0.5<small>SOL</small></span>
-        </div>
-
-        <div class="label l5">
-          <span>1<small>SOL</small></span>
-        </div>
-
-        <div class="label l6">
-          <span>2<small>SOL</small></span>
-        </div>
-
-        <div class="label l7">
-          <span>3<small>SOL</small></span>
-        </div>
-
-        <div class="label l8">
-          <span>5<small>SOL</small></span>
-        </div>
-
-        <div class="label l9">
-          <span>10<small>SOL</small></span>
-        </div>
-
-        <div class="label l10">
-          <span>20<small>SOL</small></span>
-        </div>
-
-        <div class="label l11">
-          <span>50<small>SOL</small></span>
-        </div>
-
-        <div class="label l12">
-          <span>100<small>SOL</small></span>
-        </div>
-
-      </div>
-
-      <div class="center">
-        <div class="sol">S<span>◎</span></div>
-      </div>
-
+    <div class="logo">
+        SOLANA REWARDS
     </div>
 
-  </div>
+    <h1>
+        <span>Spin & Win.</span>
+    </h1>
 
+    <div class="subtitle">
+        Spin the wheel and win SOL rewards
+    </div>
+
+    <button
+        class="spin-button"
+        onclick="spin()">
+        SPIN NOW →
+    </button>
+
+    <button
+        class="wallet-button"
+        onclick="openClaimModal()">
+        💳 CONNECT WALLET
+    </button>
+
+    <div
+        class="result"
+        id="result">
+    </div>
+
+    <div class="wheel-area">
+
+        <div class="pointer-label">
+            WINNER
+        </div>
+
+        <div class="pointer"></div>
+
+        <div
+            class="wheel"
+            id="wheel">
+
+            <div class="disc"></div>
+
+            <div class="labels">
+
+                <div class="label l1">
+                    <span>0.05<small>SOL</small></span>
+                </div>
+
+                <div class="label l2">
+                    <span>0.1<small>SOL</small></span>
+                </div>
+
+                <div class="label l3">
+                    <span>0.2<small>SOL</small></span>
+                </div>
+
+                <div class="label l4">
+                    <span>0.5<small>SOL</small></span>
+                </div>
+
+                <div class="label l5">
+                    <span>1<small>SOL</small></span>
+                </div>
+
+                <div class="label l6">
+                    <span>2<small>SOL</small></span>
+                </div>
+
+                <div class="label l7">
+                    <span>3<small>SOL</small></span>
+                </div>
+
+                <div class="label l8">
+                    <span>5<small>SOL</small></span>
+                </div>
+
+                <div class="label l9">
+                    <span>10<small>SOL</small></span>
+                </div>
+
+                <div class="label l10">
+                    <span>20<small>SOL</small></span>
+                </div>
+
+                <div class="label l11">
+                    <span>50<small>SOL</small></span>
+                </div>
+
+                <div class="label l12">
+                    <span>100<small>SOL</small></span>
+                </div>
+
+            </div>
+
+            <div class="center">
+                <div class="solana-mark">
+                    SOL
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
-<!-- WIN MODAL -->
+<!-- WIN WINDOW -->
 
-<div class="modal" id="prizeModal">
+<div
+    class="modal"
+    id="prizeModal">
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <div class="modal-title">
-      🎉 बधाई!
+        <div class="modal-title">
+            🎉 Congratulations!
+        </div>
+
+        <div class="modal-text">
+            Your winning reward:
+        </div>
+
+        <div
+            class="prize"
+            id="prizeAmount">
+            1 SOL
+        </div>
+
+        <div class="modal-text">
+            Reward eligibility and payout conditions apply.
+        </div>
+
+        <button
+            class="claim-button"
+            onclick="openClaimModal()">
+            CLAIM 1 SOL →
+        </button>
+
+        <button
+            class="close-button"
+            onclick="closePrizeModal()">
+            Close
+        </button>
+
     </div>
-
-    <div class="modal-text">
-      आपने जीता:
-    </div>
-
-    <div class="prize" id="prizeAmount">
-      1 SOL
-    </div>
-
-    <div class="modal-text">
-      अपना पुरस्कार प्राप्त करने के लिए नीचे दिए गए बटन पर क्लिक करें।
-    </div>
-
-    <button class="claim-btn" onclick="openModal()">
-      प्राप्त करें SOL →
-    </button>
-
-    <button class="close-btn" onclick="closePrizeModal()">
-      बंद करें
-    </button>
-
-  </div>
-
 </div>
 
 
-<!-- GET / WALLET MODAL -->
+<!-- CLAIM WINDOW -->
 
-<div class="modal" id="walletModal">
+<div
+    class="modal"
+    id="claimModal">
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <div class="modal-title">
-      💰 प्राप्त करें
+        <div class="modal-title">
+            💰 Claim Reward
+        </div>
+
+        <div class="prize">
+            1 SOL
+        </div>
+
+        <div class="modal-text">
+            Connect your compatible wallet to continue.
+            Never enter your seed phrase or private key on this website.
+        </div>
+
+        <button
+            class="claim-button"
+            onclick="connectWallet()">
+            CONNECT WALLET →
+        </button>
+
+        <div
+            id="walletStatus"
+            style="margin-top:18px;color:#22d3ee;font-weight:bold;">
+        </div>
+
+        <button
+            class="close-button"
+            onclick="closeClaimModal()">
+            Close
+        </button>
+
     </div>
-
-    <div class="prize">
-      1 SOL
-    </div>
-
-    <div class="modal-text">
-      यह демонстрационная версия сайта.
-      Реальная выплата SOL здесь не выполняется.
-    </div>
-
-    <button class="claim-btn" onclick="closeModal()">
-      Продолжить
-    </button>
-
-    <button class="close-btn" onclick="closeModal()">
-      Закрыть
-    </button>
-
-  </div>
-
 </div>
 
 
 <script>
 
-const wheel = document.getElementById("wheel");
-const result = document.getElementById("result");
+const wheel =
+    document.getElementById("wheel");
 
-const prizeModal = document.getElementById("prizeModal");
-const walletModal = document.getElementById("walletModal");
+const result =
+    document.getElementById("result");
+
+const prizeModal =
+    document.getElementById("prizeModal");
+
+const claimModal =
+    document.getElementById("claimModal");
 
 let rotation = 0;
 let spinning = false;
-
-/*
-  Для демонстрации выигрыш всегда 1 SOL.
-  Можно поменять на любую сумму.
-*/
 
 const DEMO_PRIZE = "1 SOL";
 
 
 function spin(){
 
-  if(spinning){
-    return;
-  }
+    if(spinning){
+        return;
+    }
 
-  spinning = true;
+    spinning = true;
 
-  result.textContent = "पहिया घूम रहा है…";
+    result.textContent =
+        "The wheel is spinning...";
 
-  /*
-    6 полных оборотов.
-    Дополнительные 360 градусов нужны,
-    чтобы колесо красиво остановилось.
-  */
+    rotation += 2160;
 
-  rotation += 2160;
-
-  wheel.style.transform =
-    `rotate(${rotation}deg)`;
-
-  setTimeout(function(){
-
-    result.innerHTML =
-      `🎉 बधाई! आपने <strong>${DEMO_PRIZE}</strong> जीता!`;
-
-    spinning = false;
-
-    /*
-      Открываем окно автоматически
-      после остановки колеса.
-    */
+    wheel.style.transform =
+        `rotate(${rotation}deg)`;
 
     setTimeout(function(){
-      document.getElementById("prizeAmount").textContent =
-        DEMO_PRIZE;
 
-      prizeModal.classList.add("show");
-    },500);
+        result.innerHTML =
+            `🎉 Congratulations! You won <strong>${DEMO_PRIZE}</strong>!`;
 
-  },4700);
+        spinning = false;
+
+        setTimeout(function(){
+
+            document
+                .getElementById("prizeAmount")
+                .textContent = DEMO_PRIZE;
+
+            prizeModal.classList.add("show");
+
+        },500);
+
+    },4700);
 }
 
 
-/*
-  Открыть окно "Получить"
-*/
+function openClaimModal(){
 
-function openModal(){
+    prizeModal.classList.remove("show");
 
-  prizeModal.classList.remove("show");
-
-  walletModal.classList.add("show");
+    claimModal.classList.add("show");
 }
 
 
-/*
-  Закрыть окно получения
-*/
+function closeClaimModal(){
 
-function closeModal(){
-
-  walletModal.classList.remove("show");
+    claimModal.classList.remove("show");
 }
 
-
-/*
-  Закрыть окно выигрыша
-*/
 
 function closePrizeModal(){
 
-  prizeModal.classList.remove("show");
+    prizeModal.classList.remove("show");
 }
 
 
 /*
-  Закрытие по нажатию вне окна
+  Safe wallet connection.
+  The site never asks for a seed phrase
+  or private key.
 */
 
-prizeModal.addEventListener("click", function(e){
+async function connectWallet(){
 
-  if(e.target === prizeModal){
-    closePrizeModal();
-  }
+    const status =
+        document.getElementById("walletStatus");
 
-});
+    if(
+        !window.solana ||
+        !window.solana.isPhantom
+    ){
 
-walletModal.addEventListener("click", function(e){
+        status.textContent =
+            "Compatible wallet not detected.";
 
-  if(e.target === walletModal){
-    closeModal();
-  }
+        return;
+    }
 
-});
+    try{
+
+        const response =
+            await window.solana.connect();
+
+        const address =
+            response.publicKey.toString();
+
+        status.innerHTML =
+            "Wallet connected ✅<br>" +
+            "<small>" +
+            address.slice(0,6) +
+            "..." +
+            address.slice(-4) +
+            "</small>";
+
+    }catch(error){
+
+        console.error(error);
+
+        status.textContent =
+            "Wallet connection was cancelled.";
+
+    }
+}
+
+
+prizeModal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === prizeModal){
+            closePrizeModal();
+        }
+
+    }
+);
+
+
+claimModal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === claimModal){
+            closeClaimModal();
+        }
+
+    }
+);
 
 </script>
 
