@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Solana Spin & Win — Demo</title>
+<title>Solana Spin </title>
 
 <style>
 * {
@@ -314,7 +314,6 @@ button {
 
 <div class="container">
 
-  <div class="demo">DEMO VERSION</div>
 
   <h1>Spin &amp; Win</h1>
 
@@ -350,7 +349,7 @@ button {
         <div class="label l9"><span>10</span></div>
         <div class="label l10"><span>20</span></div>
         <div class="label l11"><span>50</span></div>
-        <div class="label l12"><span>100</span></div>
+        
 
       </div>
 
@@ -360,11 +359,6 @@ button {
 
   </div>
 
-  <div class="note">
-    Demonstration only. No SOL is transferred.
-  </div>
-
-</div>
 
 
 <!-- CONGRATULATIONS MODAL -->
@@ -382,14 +376,12 @@ button {
     </div>
 
     <div class="modal-text">
-      Your demo winning result is:
+      Win
       <br><br>
       <strong>5 SOL</strong>
     </div>
 
-    <div class="demo-warning">
-      This is a demonstration only. No cryptocurrency is transferred.
-    </div>
+  
 
     <button
       class="close-button"
@@ -404,7 +396,7 @@ button {
 
 <script>
 
-const DEMO_PRIZE = "5 SOL";
+const PRIZE = "5 SOL";
 
 let rotation = 0;
 let spinning = false;
@@ -422,11 +414,7 @@ function spin() {
   button.disabled = true;
   result.textContent = "Spinning...";
 
-  /*
-    DEMO:
-    Always stops at the same position.
-    This does not determine a real cryptocurrency payout.
-  */
+ 
 
   rotation += 2160;
 
@@ -435,9 +423,7 @@ function spin() {
 
   setTimeout(function() {
 
-    result.textContent =
-      "🎉 Demo result: " + DEMO_PRIZE;
-
+    
     spinning = false;
     button.disabled = false;
 
