@@ -1,51 +1,477 @@
-<!-- DEMO RESULT -->
-<div id="prizeModal" class="modal">
-  <div class="modal-content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <h2>🎉 Congratulations!</h2>
+<title>Solana Spin & Win — Demo</title>
 
-    <p>Your demo winning reward:</p>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    <div class="reward-amount">5 SOL</div>
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(circle at 50% 25%, #172b55 0%, #07101f 42%, #02050b 100%);
+  color: white;
+}
 
-    <p>
-      This is a demonstration only. No SOL is transferred.
-    </p>
+body {
+  overflow-x: hidden;
+}
 
-    <button class="claim-btn" onclick="closePrizeModal()">
-      OK →
-    </button>
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin: auto;
+  padding: 35px 18px 60px;
+  text-align: center;
+}
 
-    <button class="close-btn" onclick="closePrizeModal()">
+.demo {
+  display: inline-block;
+  padding: 7px 15px;
+  border: 1px solid #20d9ff;
+  border-radius: 20px;
+  color: #20d9ff;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(38px, 10vw, 70px);
+  font-weight: 900;
+  background: linear-gradient(90deg, #19d9ff, #7d3cff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 14px 0 28px;
+  color: #b7c6df;
+  font-size: 19px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.spin-button {
+  width: min(100%, 430px);
+  padding: 19px 30px;
+  border-radius: 50px;
+  color: white;
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #13cde5, #7939ed);
+  box-shadow: 0 0 35px rgba(26, 211, 255, .25);
+}
+
+.spin-button:disabled {
+  opacity: .55;
+}
+
+.result {
+  min-height: 42px;
+  margin: 22px 0 12px;
+  color: #20d9ff;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.wheel-area {
+  position: relative;
+  width: min(92vw, 620px);
+  aspect-ratio: 1;
+  margin: 20px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pointer {
+  position: absolute;
+  z-index: 10;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-top: 65px solid #20d9ff;
+  filter: drop-shadow(0 0 10px #20d9ff);
+}
+
+.wheel {
+  position: relative;
+  width: 94%;
+  height: 94%;
+  border-radius: 50%;
+  border: 14px solid #267eff;
+  outline: 5px solid #1ad8ef;
+  box-shadow:
+    0 0 20px rgba(29, 220, 255, .6),
+    0 0 60px rgba(90, 50, 255, .35);
+  transition: transform 4.5s cubic-bezier(.12,.7,.12,1);
+  overflow: hidden;
+
+  background:
+    conic-gradient(
+      from -15deg,
+      #285fe8 0deg 30deg,
+      #7437e8 30deg 60deg,
+      #11aac2 60deg 90deg,
+      #5047df 90deg 120deg,
+      #285fe8 120deg 150deg,
+      #7437e8 150deg 180deg,
+      #11aac2 180deg 210deg,
+      #5047df 210deg 240deg,
+      #285fe8 240deg 270deg,
+      #7437e8 270deg 300deg,
+      #11aac2 300deg 330deg,
+      #5047df 330deg 360deg
+    );
+}
+
+.labels {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  height: 45%;
+  margin-left: -40px;
+  transform-origin: 50% 100%;
+  text-align: center;
+  font-size: clamp(15px, 4vw, 23px);
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 5px #000;
+  padding-top: 14px;
+}
+
+.label span {
+  display: block;
+  transform: rotate(0deg);
+}
+
+.l1  { transform: rotate(0deg) translateY(-50%); }
+.l2  { transform: rotate(30deg) translateY(-50%); }
+.l3  { transform: rotate(60deg) translateY(-50%); }
+.l4  { transform: rotate(90deg) translateY(-50%); }
+.l5  { transform: rotate(120deg) translateY(-50%); }
+.l6  { transform: rotate(150deg) translateY(-50%); }
+.l7  { transform: rotate(180deg) translateY(-50%); }
+.l8  { transform: rotate(210deg) translateY(-50%); }
+.l9  { transform: rotate(240deg) translateY(-50%); }
+.l10 { transform: rotate(270deg) translateY(-50%); }
+.l11 { transform: rotate(300deg) translateY(-50%); }
+.l12 { transform: rotate(330deg) translateY(-50%); }
+
+.center {
+  position: absolute;
+  z-index: 5;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #080d20;
+  border: 9px solid #18d9ee;
+  box-shadow: 0 0 25px rgba(24,217,238,.6);
+  font-size: 27px;
+  font-weight: 900;
+  color: #20d9ff;
+}
+
+.note {
+  margin-top: 30px;
+  color: #8899b7;
+  font-size: 14px;
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  width: min(100%, 560px);
+  padding: 32px 28px;
+  border-radius: 25px;
+  background: #0b1429;
+  border: 2px solid #1dd8f4;
+  box-shadow: 0 0 45px rgba(29,216,244,.25);
+  text-align: left;
+}
+
+.modal-title {
+  margin: 0 0 18px;
+  color: #22d9f4;
+  font-size: 35px;
+}
+
+.amount {
+  margin: 15px 0;
+  font-size: 64px;
+  font-weight: 900;
+  background: linear-gradient(90deg,#19d9ff,#8140ed);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.modal-text {
+  color: #b6c5df;
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.demo-warning {
+  margin-top: 18px;
+  padding: 13px;
+  border-radius: 12px;
+  background: rgba(255,190,50,.08);
+  color: #ffd76a;
+  font-size: 14px;
+}
+
+.close-button {
+  margin-top: 22px;
+  padding: 13px 25px;
+  border-radius: 30px;
+  background: #202b42;
+  color: white;
+  font-size: 16px;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding-top: 25px;
+  }
+
+  .wheel-area {
+    width: 94vw;
+  }
+
+  .center {
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+  }
+
+  .pointer {
+    border-left-width: 22px;
+    border-right-width: 22px;
+    border-top-width: 50px;
+  }
+
+  .modal-box {
+    padding: 25px 20px;
+  }
+
+  .modal-title {
+    font-size: 29px;
+  }
+
+  .amount {
+    font-size: 54px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="demo">DEMO VERSION</div>
+
+  <h1>Spin &amp; Win</h1>
+
+  <div class="subtitle">
+    Spin the wheel and see the demo result
+  </div>
+
+  <button
+    id="spinButton"
+    class="spin-button"
+    onclick="spin()">
+    SPIN NOW →
+  </button>
+
+  <div id="result" class="result"></div>
+
+  <div class="wheel-area">
+
+    <div class="pointer"></div>
+
+    <div id="wheel" class="wheel">
+
+      <div class="labels">
+
+        <div class="label l1"><span>0.05</span></div>
+        <div class="label l2"><span>0.1</span></div>
+        <div class="label l3"><span>0.2</span></div>
+        <div class="label l4"><span>0.5</span></div>
+        <div class="label l5"><span>1</span></div>
+        <div class="label l6"><span>2</span></div>
+        <div class="label l7"><span>3</span></div>
+        <div class="label l8"><span>5</span></div>
+        <div class="label l9"><span>10</span></div>
+        <div class="label l10"><span>20</span></div>
+        <div class="label l11"><span>50</span></div>
+        <div class="label l12"><span>100</span></div>
+
+      </div>
+
+    </div>
+
+    <div class="center">SOL</div>
+
+  </div>
+
+  <div class="note">
+    Demonstration only. No SOL is transferred.
+  </div>
+
+</div>
+
+
+<!-- CONGRATULATIONS MODAL -->
+
+<div id="modal" class="modal">
+
+  <div class="modal-box">
+
+    <h2 class="modal-title">
+      🎉 Congratulations!
+    </h2>
+
+    <div class="amount">
+      5 SOL
+    </div>
+
+    <div class="modal-text">
+      Your demo winning result is:
+      <br><br>
+      <strong>5 SOL</strong>
+    </div>
+
+    <div class="demo-warning">
+      This is a demonstration only. No cryptocurrency is transferred.
+    </div>
+
+    <button
+      class="close-button"
+      onclick="closeModal()">
       Close
     </button>
 
   </div>
+
 </div>
 
+
 <script>
+
 const DEMO_PRIZE = "5 SOL";
 
-function openModal() {
-  const modal = document.getElementById("prizeModal");
-  if (modal) modal.style.display = "flex";
-}
-
-function closePrizeModal() {
-  const modal = document.getElementById("prizeModal");
-  if (modal) modal.style.display = "none";
-}
+let rotation = 0;
+let spinning = false;
 
 function spin() {
+
+  if (spinning) return;
+
+  spinning = true;
+
+  const button = document.getElementById("spinButton");
+  const wheel = document.getElementById("wheel");
   const result = document.getElementById("result");
 
-  if (result) {
-    result.innerHTML =
-      "🎉 Congratulations! You won <strong>5 SOL</strong>!<br><small>DEMO</small>";
-  }
+  button.disabled = true;
+  result.textContent = "Spinning...";
 
-  setTimeout(() => {
+  /*
+    DEMO:
+    Always stops at the same position.
+    This does not determine a real cryptocurrency payout.
+  */
+
+  rotation += 2160;
+
+  wheel.style.transform =
+    "rotate(" + rotation + "deg)";
+
+  setTimeout(function() {
+
+    result.textContent =
+      "🎉 Demo result: " + DEMO_PRIZE;
+
+    spinning = false;
+    button.disabled = false;
+
     openModal();
-  }, 500);
+
+  }, 4700);
 }
+
+
+function openModal() {
+
+  const modal =
+    document.getElementById("modal");
+
+  modal.classList.add("show");
+}
+
+
+function closeModal() {
+
+  const modal =
+    document.getElementById("modal");
+
+  modal.classList.remove("show");
+}
+
+
+/*
+  Required button handler:
+  This function exists so buttons using
+  onclick="openModal()" work correctly.
+*/
+
 </script>
+
+</body>
+</html>
